@@ -10,5 +10,5 @@ module.exports = {
     'use_database': true,
     "facebook_api_key"      :     "493594601166223",
     "facebook_api_secret"   :     "eb4ee00e5d00e8adaab1a30c8e9e25fa",
-    "callback_url"          :     "http://localhost:3000/auth/facebook/callback",
+    "callback_url"          :     "https://gopartyperu.herokuapp.com/auth/facebook/callback",
 };
