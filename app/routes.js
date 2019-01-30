@@ -80,6 +80,7 @@ module.exports = function(app, passport) {
 			res.redirect('/');
 		}
 	);
+	
 
 	app.get('/auth/google', passport.authenticate('google', {
 		scope: ['https://www.googleapis.com/auth/plus.login']
@@ -96,6 +97,12 @@ module.exports = function(app, passport) {
 				req.session.cookie.expires = false;
 			}
 			res.redirect('/');
+		}
+	);
+	app.get('/auth/google-movil/callback',
+		passport.authenticate('google', { session: false }), 
+		function(req, res) {
+			res.json({ "autorizacion": true });
 		}
 	);
 };
