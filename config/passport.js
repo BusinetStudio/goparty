@@ -160,7 +160,7 @@ module.exports = function(passport) {
     passport.use(new GoogleStrategy({
         clientID: '112200454894269595101',
         clientSecret: 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCv8ptcKYeGTiFI',
-        callbackURL: 'http://localhost:3000/auth/google/callback'
+        callbackURL: 'https://gopartyperu.herokuapp.com/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
         return done(null, {
