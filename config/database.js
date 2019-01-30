@@ -5,7 +5,7 @@ module.exports = {
         'user': 'fsanmcbx_macrote',
         'password': 'appcontraseñ@'
     },
-	'database': 'goparty',
+	'database': 'fsanmcbx_goparty',
     'users_table': 'usuarios',
     'use_database': true,
     "facebook_api_key"      :     "493594601166223",
