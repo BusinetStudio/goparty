@@ -1,9 +1,9 @@
 // config/database.js
 module.exports = {
     'connection': {
-        'host': 'localhost',
-        'user': 'root',
-        'password': ''
+        'host': 'businet-web.com',
+        'user': 'fsanmcbx_macrote',
+        'password': 'appcontraseñ@'
     },
 	'database': 'goparty',
     'users_table': 'usuarios',
