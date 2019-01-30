@@ -82,11 +82,12 @@ module.exports = function(app, passport) {
 	);
 
 	app.get('/auth/google', passport.authenticate('google', {
-		scope: ['service_account']
+		scope: ['https://www.googleapis.com/auth/plus.login']
 	}));
 	app.get('/auth/google/callback',
 		passport.authenticate('google', {
-			failureRedirect: '/'
+			successRedirect : '/dashboard', 
+			failureRedirect: '/login' 
 		}),
 		(req, res) => {
 			if (req.body.remember) {
