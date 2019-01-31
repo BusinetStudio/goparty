@@ -163,6 +163,7 @@ module.exports = function(passport) {
         callbackURL: 'https://gopartyperu.herokuapp.com/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
+        console.log(profile);
         return done(null, {
             profile: profile,
             token: token
