@@ -157,13 +157,37 @@ module.exports = function(passport) {
         }
     ));
 
+    passport.use('google-movil', 
+    new GoogleStrategy({
+        clientID: '653015851148-jpfm471lcv3oe04ts4lgrcb8bsf8odes.apps.googleusercontent.com',
+        clientSecret: 'fAQ8tEF0mA52Ok-7Z8PzoBEK',
+        callbackURL: 'https://gopartyperu.herokuapp.com/auth/google-movil/callback'
+    },
+    (token, refreshToken, profile, done) => {
+        process.nextTick(function () {
+            connection.query("SELECT profileId FROM googleUser WHERE profileId = ?",[profile.id], function(err, rows){
+                if (err) return done(err);
+                if (!rows.length) {
+                    connection.query("INSERT INTO googleUser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                        if(err) return done(err);
+                        if(rows.length){
+                            return done(null, profile);
+                        }
+                    });
+                }else{
+                    return done(null, profile);
+                }
+            });
+        });
+    }));
+
+
     passport.use(new GoogleStrategy({
         clientID: '653015851148-jpfm471lcv3oe04ts4lgrcb8bsf8odes.apps.googleusercontent.com',
         clientSecret: 'fAQ8tEF0mA52Ok-7Z8PzoBEK',
         callbackURL: 'https://gopartyperu.herokuapp.com/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
-        console.log(profile);
         return done(null, {
             profile: profile,
             token: token

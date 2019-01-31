@@ -99,23 +99,12 @@ module.exports = function(app, passport) {
 			res.redirect('/');
 		}
 	);
-	app.post('/api/google-movil/',
-		function(req, res) {
-			connection.query("SELECT profileId FROM facebookUser WHERE profileId = ?",[profile.id], function(err, rows){
-				if (err) return done(err);
-				if (!rows.length) {
-					connection.query("INSERT INTO facebookUser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
-						if(err) return done(err);
-						if(rows.length){
-							return done(null, profile);
-						}
-					});
-				}else{
-					return done(null, profile);
-				}
-			});
-			res.json({ "autorizacion": true });
-		}
+	app.post('/auth/google-movil/callback', 
+		passport.authenticate('google-movil',
+		{	
+			successRedirect : 'https://auth.expo.io/@anonymous/goparty-ac600cb6-8c77-4253-827d-7de62339b656', 
+			failureRedirect: 'https://auth.expo.io/@anonymous/goparty-ac600cb6-8c77-4253-827d-7de62339b656' 
+		})
 	);
 };
 
