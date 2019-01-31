@@ -165,10 +165,10 @@ module.exports = function(passport) {
     },
     (token, refreshToken, profile, done) => {
         process.nextTick(function () {
-            connection.query("SELECT profileId FROM googleUser WHERE profileId = ?",[profile.id], function(err, rows){
+            connection.query("SELECT profileId FROM googleuser WHERE profileId = ?",[profile.id], function(err, rows){
                 if (err) return done(err);
                 if (!rows.length) {
-                    connection.query("INSERT INTO googleUser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                    connection.query("INSERT INTO googleuser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
                         if(err) return done(err);
                         if(rows.length){
                             return done(null, profile);
