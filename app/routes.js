@@ -99,7 +99,7 @@ module.exports = function(app, passport) {
 			res.redirect('/');
 		}
 	);
-	app.post('/auth/google-movil/callback', 
+	app.get('/auth/google-movil/callback', 
 		passport.authenticate('google-movil',
 		{	
 			successRedirect : 'https://auth.expo.io/@anonymous/goparty-ac600cb6-8c77-4253-827d-7de62339b656', 
