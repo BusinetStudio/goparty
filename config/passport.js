@@ -143,7 +143,7 @@ module.exports = function(passport) {
                 connection.query("SELECT facebook_profile_id FROM usuarios WHERE facebook_profile_id = ?",[profile.id], function(err, rows){
                     if (err) return done(err);
                     if (!rows.length) {
-                        connection.query("INSERT INTO usuarios (facebook_display_name, facebook_rofile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                        connection.query("INSERT INTO usuarios (facebook_display_name, facebook_profile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
                             if(err) return done(err);
                             if(rows.length){
                                 return done(null, profile);
@@ -164,7 +164,7 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    connection.query('INSERT INTO usuarios ( facebook_profile_id ) values (?)',[id],function(err, rows) {
+                    connection.query('INSERT INTO usuarios ( facebook_display_name, facebook_profile_id ) values (?, ?)',[displayName, id],function(err, rows) {
                         return done(null, id);
                     });
                     return done(null, false); // req.flash is the way to set flashdata using connect-flash
