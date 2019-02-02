@@ -106,6 +106,12 @@ module.exports = function(app, passport) {
 			failureRedirect: 'https://auth.expo.io/@anonymous/goparty-ac600cb6-8c77-4253-827d-7de62339b656' 
 		})
 	);
+
+	app.post('/api/facebook-movil-login', passport.authenticate('facebook-movil',{ session: false }), 
+		function(req, res) {
+			res.json({ "autorizacion": true });
+		}
+	);
 };
 
 

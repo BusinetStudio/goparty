@@ -140,10 +140,10 @@ module.exports = function(passport) {
       },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(function () {
-                connection.query("SELECT profileId FROM facebookUser WHERE profileId = ?",[profile.id], function(err, rows){
+                connection.query("SELECT facebook_profile_id FROM usuarios WHERE facebook_profile_id = ?",[profile.id], function(err, rows){
                     if (err) return done(err);
                     if (!rows.length) {
-                        connection.query("INSERT INTO facebookUser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                        connection.query("INSERT INTO usuarios (facebook_display_name, facebook_rofile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
                             if(err) return done(err);
                             if(rows.length){
                                 return done(null, profile);
@@ -156,6 +156,24 @@ module.exports = function(passport) {
             });
         }
     ));
+    passport.use(
+        'facebook-movil',
+        new LocalStrategy(
+        function(id, done) { // callback with email and password from our form
+            connection.query("SELECT * FROM usuarios WHERE facebook_profile_id = ?",[id], function(err, rows){
+                if (err)
+                    return done(err);
+                if (!rows.length) {
+                    connection.query('INSERT INTO usuarios ( facebook_profile_id ) values (?)',[id],function(err, rows) {
+                        return done(null, id);
+                    });
+                    return done(null, false); // req.flash is the way to set flashdata using connect-flash
+                }
+                // all is well, return successful user
+                return done(null, rows[0]);
+            });
+        })
+    );
 
     passport.use('google-movil', 
     new GoogleStrategy({
@@ -165,10 +183,10 @@ module.exports = function(passport) {
     },
     (token, refreshToken, profile, done) => {
         process.nextTick(function () {
-            connection.query("SELECT profileId FROM googleuser WHERE profileId = ?",[profile.id], function(err, rows){
+            connection.query("SELECT google_profile_id FROM usuarios WHERE google_profile_id = ?",[profile.id], function(err, rows){
                 if (err) return done(err);
                 if (!rows.length) {
-                    connection.query("INSERT INTO googleuser (displayName, profileId) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                    connection.query("INSERT INTO usuarios (google_display_name, google_profile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
                         if(err) return done(err);
                         if(rows.length){
                             return done(null, profile);
@@ -188,9 +206,20 @@ module.exports = function(passport) {
         callbackURL: 'https://gopartyperu.herokuapp.com/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
-        return done(null, {
-            profile: profile,
-            token: token
+        process.nextTick(function () {
+            connection.query("SELECT google_profile_id FROM usuarios WHERE google_profile_id = ?",[profile.id], function(err, rows){
+                if (err) return done(err);
+                if (!rows.length) {
+                    connection.query("INSERT INTO usuarios (google_display_name, google_profile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
+                        if(err) return done(err);
+                        if(rows.length){
+                            return done(null, profile);
+                        }
+                    });
+                }else{
+                    return done(null, profile);
+                }
+            });
         });
     }));
 };
