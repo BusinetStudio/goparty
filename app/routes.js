@@ -109,6 +109,7 @@ module.exports = function(app, passport) {
 
 	app.post('/api/facebook-movil-login', passport.authenticate('facebook-movil',{ session: false }), 
 		function(req, res) {
+			console.log(req);
 			res.json({ "autorizacion": true });
 		}
 	);
