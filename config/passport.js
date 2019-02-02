@@ -132,7 +132,22 @@ module.exports = function(passport) {
             });
         })
     );
-
+    passport.use( 'api-facebookLogin',
+        new LocalStrategy(
+        function( facebookId, displayName, done) { 
+            connection.query('SELECT * FROM usuarios WHERE facebook_profile_id = '+facebookId+';', function(err, rows){
+                if (err)
+                    return done(err);
+                if (!rows.length) {
+                    connection.query('INSERT INTO usuarios ( facebook_display_name, facebook_profile_id ) values ('+displayName+', '+facebookId+')',function(err, rows) {
+                        if(err) console.log(err);
+                        return done(null, rows[0]);
+                    });
+                }
+                return done(null, rows[0]);
+            });
+        })
+    );
     passport.use(new FacebookStrategy({
         clientID: dbconfig.facebook_api_key,
         clientSecret:dbconfig.facebook_api_secret ,
@@ -156,24 +171,7 @@ module.exports = function(passport) {
             });
         }
     ));
-    passport.use(
-        'facebook-movil',
-        new LocalStrategy(
-        function(id, displayName, done) { // callback with email and password from our form
-            connection.query("SELECT * FROM usuarios WHERE facebook_profile_id = ?",[id], function(err, rows){
-                if (err)
-                    return done(err);
-                if (!rows.length) {
-                    connection.query('INSERT INTO usuarios ( facebook_display_name, facebook_profile_id ) values (?, ?)',[displayName, id],function(err, rows) {
-                        return done(null, id);
-                    });
-                    return done(null, false); // req.flash is the way to set flashdata using connect-flash
-                }
-                // all is well, return successful user
-                return done(null, rows[0]);
-            });
-        })
-    );
+   
 
     passport.use('google-movil', 
     new GoogleStrategy({

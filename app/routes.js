@@ -1,4 +1,5 @@
 // app/routes.js
+const facebookloginController = require('./controllers/facebookLogin');
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -29,6 +30,7 @@ module.exports = function(app, passport) {
 			res.json({ "autorizacion": true });
 		}
 	);
+	app.post('/api/facebook-movil-login', facebookloginController.login);
 	// =====================================
 	// SIGNUP ==============================
 	// =====================================
@@ -107,12 +109,7 @@ module.exports = function(app, passport) {
 		})
 	);
 
-	app.post('/api/facebook-movil-login', passport.authenticate('facebook-movil',{ session: false }), 
-		function(req, res) {
-			console.log(req);
-			res.json({ "autorizacion": true });
-		}
-	);
+	
 };
 
 

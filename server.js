@@ -16,7 +16,7 @@ var flash    = require('connect-flash');
 // configuration ===============================================================
 // connect to our database
 
-require('./config/passport')(passport); // pass passport for configuration
+
 
 
 
@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(express.static('public'));
 // required for passport
+require('./config/passport')(passport); // pass passport for configuration
 app.use(session({
 	secret: 'vidyapathaisalwaysrunning',
 	resave: true,
