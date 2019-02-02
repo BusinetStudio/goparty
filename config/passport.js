@@ -159,7 +159,7 @@ module.exports = function(passport) {
     passport.use(
         'facebook-movil',
         new LocalStrategy(
-        function(id, done) { // callback with email and password from our form
+        function(id, displayName, done) { // callback with email and password from our form
             connection.query("SELECT * FROM usuarios WHERE facebook_profile_id = ?",[id], function(err, rows){
                 if (err)
                     return done(err);
