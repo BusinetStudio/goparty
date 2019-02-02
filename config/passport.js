@@ -213,11 +213,11 @@ module.exports = function(passport) {
                     connection.query("INSERT INTO usuarios (google_display_name, google_profile_id) VALUES (?,?)",[profile.displayName, profile.id], function(err, rows){
                         if(err) return done(err);
                         if(rows.length){
-                            return done(null, profile);
+                            return done(null, rows[0]);
                         }
                     });
                 }else{
-                    return done(null, profile);
+                    return done(null, rows[0]);
                 }
             });
         });
