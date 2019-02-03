@@ -140,7 +140,7 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    connection.query("INSERT INTO usuarios (username, password, email) VALUES (?,?,?)",[username, password, email], function(err2, rows2){
+                    connection.query("INSERT INTO usuarios (username, password, user_email) VALUES (?,?,?)",[username, password, email], function(err2, rows2){
                         if(err2) return done(err2);
                         if(rows2.length){
                             return done(null, rows2[0]);
