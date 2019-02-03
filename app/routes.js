@@ -30,6 +30,11 @@ module.exports = function(app, passport) {
 			res.json({ "autorizacion": true });
 		}
 	);
+	app.post('/api/signup', passport.authenticate('api-signup',{ session: false }), 
+		function(req, res) {
+			res.json({ "registrado": true });
+		}
+	);
 	app.post('/api/facebook-movil-login', facebookloginController.login);
 	// =====================================
 	// SIGNUP ==============================

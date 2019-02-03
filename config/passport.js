@@ -132,16 +132,19 @@ module.exports = function(passport) {
             });
         })
     );
-    passport.use( 'api-facebookLogin',
+    passport.use(
+        'api-signup',
         new LocalStrategy(
-        function( facebookId, displayName, done) { 
-            connection.query('SELECT * FROM usuarios WHERE facebook_profile_id = '+facebookId+';', function(err, rows){
+        function(username, password, email, done) { // callback with email and password from our form
+            connection.query("SELECT * FROM usuarios WHERE username = ?",[username], function(err, rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    connection.query('INSERT INTO usuarios ( facebook_display_name, facebook_profile_id ) values ('+displayName+', '+facebookId+')',function(err, rows) {
-                        if(err) console.log(err);
-                        return done(null, rows[0]);
+                    connection.query("INSERT INTO usuarios (username, password, email) VALUES (?,?,?)",[username, password, email], function(err2, rows2){
+                        if(err2) return done(err2);
+                        if(rows2.length){
+                            return done(null, rows2[0]);
+                        }
                     });
                 }
                 return done(null, rows[0]);
