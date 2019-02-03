@@ -1,5 +1,6 @@
 // app/routes.js
 const facebookloginController = require('./controllers/facebookLogin');
+const apiSignupController = require('./controllers/apiSignup');
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -30,11 +31,7 @@ module.exports = function(app, passport) {
 			res.json({ "autorizacion": true });
 		}
 	);
-	app.post('/api/signup', passport.authenticate('api-signup',{ session: false }), 
-		function(req, res) {
-			res.json({ "registrado": true });
-		}
-	);
+	app.post('/api/signup', apiSignupController.apiSignup);
 	app.post('/api/facebook-movil-login', facebookloginController.login);
 	// =====================================
 	// SIGNUP ==============================
