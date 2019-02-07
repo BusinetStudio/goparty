@@ -1,0 +1,297 @@
+<%- include('../header'); -%>
+  <%- include('../navbar'); -%>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      
+      <%- include('../sidebar'); -%>
+      <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <h2 class="mb-4">Agregar Usuario</h2>
+                <div class="row justify-content-center">
+                    <div class="col-12 grid-margin">
+                        <form class="form-sample" action="/usuarios/nuevo" method="POST">
+                            <div class="card mb-5">
+                                <div class="card-body">
+                                <h4 class="card-title text-uppercase">Agregar datos de la nueva cuenta</h4>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Tipo de usuario</label>
+                                                <div class="col-sm-4">
+                                                    <div class="form-radio">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="privilegio" id="privilegio" value="2" checked> Cliente
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-radio">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="privilegio" id="privilegio" value="3"> Proveedor
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Usuario</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="username" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Correo Electrónico</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" name="user_email" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Contraseña</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="password" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Repetir contraseña</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="cliente">
+                                <div class="card-body">
+                                    <h4 class="card-title text-uppercase">Información del cliente</h4>
+                                    <p class="card-description font-weight-bold">
+                                        Información personal
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Nombres</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="nombres" class="form-control" />
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Apellidos</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="apellidos" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Genero</label>
+                                                <div class="col-sm-9">
+                                                    <select name="genero" class="form-control">
+                                                        <option value="Masculino">Masculino</option>
+                                                        <option value="Femenino">Femenino</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control" name="fecha_nacimiento" placeholder="dd/mm/yyyy" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" name="telefono" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Celular</label>
+                                                <div class="col-sm-9">
+                                                        <input type="tel" name="celular" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-description font-weight-bold mt-4">
+                                        Dirección
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="direccion" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Pais</label>
+                                                <div class="col-sm-9">
+                                                    <select name="pais" class="form-control">
+                                                        <option>Perú</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Departamento</label>
+                                                <div class="col-sm-9">
+                                                    <input name="departamento" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Distrito</label>
+                                                <div class="col-sm-9">
+                                                    <input name="distrito" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Provincia</label>
+                                                <div class="col-sm-9">
+                                                    <input name="provincia" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Ciudad</label>
+                                                <div class="col-sm-9">
+                                                    <input name="ciudad" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
+                                </div>
+                            </div>
+                            <div class="card d-none" id="proveedor">
+                                <div class="card-body">
+                                    <h4 class="card-title text-uppercase">Información del proveedor</h4>
+                                    <p class="card-description font-weight-bold">
+                                        Información empresa
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Empresa</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="empresa" class="form-control" />
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">RUC</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="ruc" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" name="telefono" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Celular</label>
+                                                <div class="col-sm-9">
+                                                        <input type="tel" name="celular" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-description font-weight-bold mt-4">
+                                        Dirección
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="direccion" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Pais</label>
+                                                <div class="col-sm-9">
+                                                    <select name="pais" class="form-control">
+                                                        <option>Perú</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Departamento</label>
+                                                <div class="col-sm-9">
+                                                    <input name="departamento" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Distrito</label>
+                                                <div class="col-sm-9">
+                                                    <input name="distrito" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Provincia</label>
+                                                <div class="col-sm-9">
+                                                    <input name="provincia" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Ciudad</label>
+                                                <div class="col-sm-9">
+                                                    <input name="ciudad" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="container-fluid clearfix">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+                    <a href="https://goparty.com/" target="_blank">GoParty</a>. Todos los derechos reservados.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hecho con
+                    <i class="mdi mdi-heart text-danger"></i> por <a href="https://businet-web.com">Businet</a>
+                    </span>
+                </div>
+            </footer>
+        <!-- partial -->
+         </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+<%- include('../footer'); -%>

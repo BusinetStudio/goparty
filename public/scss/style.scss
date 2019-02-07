@@ -4,7 +4,7 @@
   Project:	Star Admin Bootstrap Template [Free Version]
   Version:	2.0.0
 -------------------------------------------------------------------*/
-
+ 
 /*-------------------------------------------------------------------
   ===== Table of Contents =====
 
@@ -12,7 +12,7 @@
   * Template variables
   * SCSS Compass Functions
   * Boostrap Main SCSS
-  * Template mixins
+  * Template mixins 
     + Animation Mixins
     + Background Mixins
     + BlockQuote Mixins
@@ -26,7 +26,7 @@
     + Fonts
     + Functions
     + Sidebar
-    + Navbar
+    + Navbar 
     + Typography
     + Miscellaneous
     + Footer
@@ -52,15 +52,15 @@
     + Auth
     + Error
 -------------------------------------------------------------------*/
-
+   
 /*-------------------------------------------------------------------*/
 
 /* === Import Bootstrap functions and variables === */
-
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
+   
+@import "vendors/bootstrap/scss/functions";
+@import "vendors/bootstrap/scss/variables";
 /*-------------------------------------------------------------------*/
-
+ 
 /* === Import template variables === */
 
 @import "variables";
@@ -68,15 +68,15 @@
 
 /* === SCSS Compass Functions === */
 
-@import "../node_modules/compass-mixins/lib/compass";
-@import "../node_modules/compass-mixins/lib/animate";
+@import "vendors/compass-mixins/lib/compass";
+@import "vendors/compass-mixins/lib/animate";
 /*-------------------------------------------------------------------*/
 
 /* === Boostrap Main SCSS === */
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "vendors/bootstrap/scss/bootstrap";
 /*-------------------------------------------------------------------*/
-
+ 
 /* === Template mixins === */
 
 @import "mixins/animation";
@@ -120,7 +120,7 @@
 @import "components/preview";
 @import "components/tables";
 /*-------------------------------------------------------------------*/
-
+ 
 /* === Landing screens === */
 
 @import "landing-screens/auth";
