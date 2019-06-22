@@ -11,8 +11,8 @@ var express  				= require('express'),
 		errorhandler 		= require('errorhandler'),
 		passport 				= require('passport'),
 		flash   				= require('connect-flash'),
-		mongoose 				= require('mongoose');
-
+		mongoose 				= require('mongoose'),
+		MongoStore = require('connect-mongo')(session);
 // configuration ===============================================================
 var port     = process.env.PORT || 3000;
 var isProduction = process.env.NODE_ENV === 'production';
@@ -48,7 +48,8 @@ require('./app/models/usuarios');
 app.use(session({ 
   secret: 'secret',
   saveUninitialized: true,
-  resave: true
+	resave: true,
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
  app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
