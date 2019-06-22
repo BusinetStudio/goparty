@@ -40,7 +40,7 @@ if(isProduction){
   mongoose.connect('mongodb://rogue789:rogue195@ds149984.mlab.com:49984/heroku_w8jkkwv3');
   mongoose.set('debug', true);
 }
-require('./app/models/Usuarios');
+require('./app/models/usuarios');
 
 
 // required for passport
