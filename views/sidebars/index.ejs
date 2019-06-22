@@ -1,0 +1,7 @@
+<% if(usuario.privilege == 'Admin'){ %>
+  <%- include('admin'); -%>
+<% }else if (usuario.privilege == 'Usuario'){ %>
+  <%- include('usuarios'); -%>
+<% }else if (usuario.privilege == 'Proveedor'){ %>
+  <%- include('proveedores'); -%>
+<% } %>

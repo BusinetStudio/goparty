@@ -4,13 +4,52 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// load up the user model
-var mysql = require('mysql');
-var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./database');
-var connection = mysql.createConnection(dbconfig.connection);
 
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var User = mongoose.model('Usuarios');
+
+
+
+passport.use(new LocalStrategy(
+    {passReqToCallback : true},
+    function(req, username, password, done) {
+        User.findOne({username: username}).then(function(user){
+            if(!user ){
+                return done(null, false, req.flash('message', 'Usuario incorrecto.') );
+            }
+            else if( !user.validPassword(password)){
+                return done(null, false, req.flash('message', 'Contraseña incorrecta.') );
+            }
+            else if( !username && !password){
+                return done(null, false, req.flash('message', 'Debe rellenar todos los campos.') );
+            }
+            return done(null, user);
+        }).catch(done);
+    }
+));
+passport.use('app',new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({username: username}).then(function(user){
+            if(!user ){
+                return done(null, false, {errors: 'Usuario incorrecto'} );
+            }
+            else if( !user.validPassword(password)){
+                return done(null, false, {errors: 'Contraseña incorrecto'} );
+            }
+            else if( !username && !password){
+                return done(null, false, {errors: 'Debe rellenar los campos'} );
+            }
+            return done(null, user);
+        }).catch(done);
+    }
+));
+
+/*
 connection.query('USE ' + dbconfig.database);
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
@@ -28,12 +67,12 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         done(null, id);
-        /*
+        
         console.log(id);
         connection.query("SELECT * FROM usuarios WHERE id = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
-        */
+        
     });
 
     // =========================================================================
@@ -225,3 +264,4 @@ module.exports = function(passport) {
     }));
 };
 
+*/

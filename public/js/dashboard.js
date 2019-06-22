@@ -94,15 +94,15 @@
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         }
       }
-    });
+    }); 
 
     $('[name="privilegio"]').change(function(){
       if( $(this).val() == 2){
         $('#proveedor').addClass('d-none');
         $('#cliente').removeClass('d-none');
       }else if( $(this).val() == 3){
-        $('#proveedor').removeClass('d-none');
         $('#cliente').addClass('d-none');
+        $('#proveedor').removeClass('d-none');
       }
       $('input').each(function(){
         $(this).val('');

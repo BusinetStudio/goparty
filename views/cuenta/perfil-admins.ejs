@@ -1,0 +1,83 @@
+<%- include('../header'); -%>
+  <%- include('../navbar'); -%>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      
+      <%- include('../sidebars/index'); -%>
+      <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="col-12 grid-margin">
+                  <form class="form-sample" action="/cuenta/perfil" method="POST">
+                    <div class="card mb-5">
+                      <div class="card-body">
+
+                        <h4 class="card-title text-uppercase">Datos de la cuenta</h4>
+                        <p class="card-description font-weight-bold mt-4">
+                            Datos personales
+                        </p>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group row">
+                              <label class="col-form-label">Nombres y Apellidos</label>
+                              <input type="text"  value="<%= usuario.nombreCompleto %>" name="nombreCompleto" class="form-control mr-sm-2" />
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group row">
+                              <label class="col-form-label">Genero</label>
+                              <select value="<%= usuario.genero %>" name="genero" class="form-control">
+                                <% if(usuario.genero == 'Masculino'){ %>
+                                  <option disabled>Seleccionar genero</option>
+                                  <option selected value="Masculino">Masculino</option>
+                                  <option value="Femenino">Femenino</option>
+                                <% }else if(usuario.genero == 'Femenino'){ %>
+                                  <option disabled>Seleccionar genero</option>
+                                  <option selected value="Femenino">Femenino</option>
+                                  <option value="Masculino">Masculino</option>
+                                <% }else { %>
+                                  <option selected disabled>Seleccionar genero</option>
+                                  <option value="Femenino">Femenino</option>
+                                  <option value="Masculino">Masculino</option>
+                                <% } %>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group row">
+                              <label class="col-form-label">Celular</label>
+                              <input type="text"  value="<%= usuario.celular %>" name="celular" class="form-control mr-sm-2" />
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group row">
+                              <label class="col-form-label">Email</label>
+                              <input type="text"  value="<%= usuario.email %>" name="email" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+                          <div class="row justify-content-end mt-4">
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                          </div>
+
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid clearfix">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+                    <a href="https://goparty.com/" target="_blank">GoParty</a>. Todos los derechos reservados.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hecho con
+                    <i class="mdi mdi-heart text-danger"></i> por <a href="https://businet-web.com">Businet</a>
+                    </span>
+                </div>
+            </footer>
+         </div>
+    </div>
+<%- include('../footer'); -%>

@@ -3,6 +3,8 @@
   font-size: $btn-font-size;
   line-height: 1;
   font-family: $type-1;
+  border-radius: 30px;
+  text-transform: uppercase;
 
   i {
     margin-right: 0.3125rem;
@@ -73,6 +75,17 @@
     font-size: $btn-font-size-xs;
   }
 
+  &.btn-primary{
+    opacity:.8;
+    background: $blue-teal-gradient;
+    border-color: transparent; 
+    &:hover{
+      opacity: 1;
+      background: $blue-teal-gradient;
+      border-color: transparent; 
+    }
+  }
+  
   &.btn-danger,
   &.btn-info,
   &.btn-success,
@@ -111,6 +124,7 @@
   }
 }
 
+
 .btn-group {
   border: $border-width solid $border-color;
   @include border-radius($btn-border-radius);
@@ -124,8 +138,15 @@
       border-right: none;
     }
 
-    &.btn-primary {
-      border-color: darken(theme-color(primary),3%);
+    &.btn-primary{
+      opacity:.8;
+      background: $blue-teal-gradient;
+      border-color: transparent; 
+      &:hover{
+        opacity: 1;
+        background: $blue-teal-gradient;
+        border-color: transparent; 
+      }
     }
 
     &.btn-secondary {

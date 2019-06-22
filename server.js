@@ -2,23 +2,20 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var session  = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var app      = express();
-var port     = process.env.PORT || 3000;
-
-var passport = require('passport');
-var flash    = require('connect-flash');
+var express  				= require('express'),
+		session  				= require('express-session'),
+		cookieParser		= require('cookie-parser'),
+		bodyParser 			= require('body-parser'),
+		morgan 					= require('morgan'),
+		app     				= express(),
+		errorhandler 		= require('errorhandler'),
+		passport 				= require('passport'),
+		flash   				= require('connect-flash'),
+		mongoose 				= require('mongoose');
 
 // configuration ===============================================================
-// connect to our database
-
-
-
-
+var port     = process.env.PORT || 3000;
+var isProduction = process.env.NODE_ENV === 'production';
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -30,20 +27,41 @@ app.use(bodyParser.json());
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(express.static('public'));
+
+
+// connect to our database
+if (!isProduction) {
+  app.use(errorhandler());
+}
+
+if(isProduction){
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect('mongodb://localhost/partyapp');
+  mongoose.set('debug', true);
+}
+require('./app/models/Usuarios');
+
+
 // required for passport
-require('./config/passport')(passport); // pass passport for configuration
-app.use(session({
-	secret: 'vidyapathaisalwaysrunning',
-	resave: true,
-	saveUninitialized: true
- } )); // session secret
+
+app.use(session({ 
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}))
+ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+require('./config/passport'); // pass passport for configuration
 
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+app.use(require('./app/routes'));
+
+
+
 
 // launch ======================================================================
 app.listen(port);

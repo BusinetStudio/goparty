@@ -72,9 +72,9 @@
 @import "vendors/compass-mixins/lib/animate";
 /*-------------------------------------------------------------------*/
 
-/* === Boostrap Main SCSS === */
+/* === Boostrap Main SCSS === */  
 
-@import "vendors/bootstrap/scss/bootstrap";
+@import "vendors/bootstrap/scss/bootstrap.scss";
 /*-------------------------------------------------------------------*/
  
 /* === Template mixins === */
@@ -108,7 +108,7 @@
 
 @import "components/badges";
 @import "components/bootstrap-progress";
-@import "components/buttons";
+@import "components/buttons"; 
 @import "components/cards";
 @import "components/checkbox-radio";
 @import "components/dropdown";
@@ -120,8 +120,8 @@
 @import "components/preview";
 @import "components/tables";
 /*-------------------------------------------------------------------*/
- 
+   
 /* === Landing screens === */
 
 @import "landing-screens/auth";
-@import "landing-screens/error";
+@import "landing-screens/error";       

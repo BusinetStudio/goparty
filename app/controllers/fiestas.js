@@ -14,43 +14,26 @@ var usuariosController = {
  
 function nuevo(req, res){
     //datos
-    var username = req.body.username,
-    user_email = req.body.user_email,
-    password = bcrypt.hashSync(req.body.password, null, null),
-    privilegio = req.body.privilegio;
-
-    //metadatos
-    var nombres = req.body.nombres,
-    apellidos = req.body.apellidos,
-    empresa = req.body.empresa,
-    ruc = req.body.ruc,
-    genero = req.body.genero,
-    fecha_nacimiento = req.body.fecha_nacimiento,
+    var nombreEvento = req.body.nombreEvento,
+    fechaEvento = req.body.fechaEvento,
+    horaEvento = req.body.horaEvento,
     direccion = req.body.direccion,
-    departamento = req.body.departamento,
-    provincia = req.body.provincia,
     distrito = req.body.distrito,
-    ciudad = req.body.ciudad,
-    pais = req.body.pais,
-    telefono = req.body.telefono,
-    celular = req.body.celular;
+    adultos = req.body.adultos,
+    ninos = req.body.ninos,
+    locales = req.body.locales
+
     connection.query(`
     INSERT INTO usuarios_metadatos
         (
-            nombres,
-            apellidos,
-            empresa,
-            ruc,
-            genero,
-            fecha_nacimiento,
-            direccion,
-            departamento,
-            provincia,
-            distrito,
-            ciudad,
-            pais,
-            telefono,
-            celular
+          nombreEvento,
+          fechaEvento,
+          horaEvento,
+          direccion,
+          distrito.
+          adultos,
+          ninos,
+          locales
         ) VALUES (
             "${nombres}",
             "${apellidos}",
@@ -67,36 +50,17 @@ function nuevo(req, res){
             "${telefono}",
             "${celular}"
     )`, 
-    function(err, rows){
-        var metadatos = rows.insertId;
-        connection.query(`
-                        INSERT INTO 
-                        usuarios ( 
-                            username, 
-                            user_email, 
-                            password, 
-                            privilegio, 
-                            metadatos
-                        ) VALUES (
-                            "${username}", 
-                            "${user_email}", 
-                            "${password}", 
-                            ${privilegio}, 
-                            ${metadatos}
-                        )`,
-            function (err2, rows2) {
-                if(err2){
-                    console.log(err2);
-                    if(err2.errno)
-                        if(err2.errno == 1062)
-                            res.redirect('/usuarios/todos?resp=duplicado');
-                    res.redirect('/usuarios/todos');
-                }
-                if(rows2){
-                    res.redirect('/usuarios/todos');
-                }
-            }
-        );
+      function (err2, rows2) {
+          if(err2){
+              console.log(err2);
+              if(err2.errno)
+                  if(err2.errno == 1062)
+                      res.redirect('/usuarios/todos?resp=duplicado');
+              res.redirect('/usuarios/todos');
+          }
+          if(rows2){
+              res.redirect('/usuarios/todos');
+          }
     });
 }
 function editar(req, res){
@@ -154,18 +118,14 @@ function editar(req, res){
     }
 }
 function getById(req, res){
-    
     connection.query('SELECT * FROM usuarios WHERE id = "'+req+'";', function (err, rows) {
         if(err) throw err;
         if(rows[0].metadatos){
             connection.query('SELECT * FROM usuarios INNER JOIN usuarios_metadatos ON usuarios.metadatos=usuarios_metadatos.id_metadatos WHERE usuarios.id = "'+req+'";', function (err2, rows2) {
-                console.log(err2);
                 if(err2) throw err2;
                 else res(rows2[0]);
             });   
-        }else{
-            res(rows[0])
-        }
+        }else{}
     });        
 }
 function eliminar(req, res){
