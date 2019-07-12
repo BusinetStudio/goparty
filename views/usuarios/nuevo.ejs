@@ -75,16 +75,8 @@
                                             <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Nombres</label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="nombres" class="form-control" />
+                                                <input type="text" name="nombreCompleto" class="form-control" />
                                             </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Apellidos</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" name="apellidos" class="form-control" />
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +96,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="fecha_nacimiento" placeholder="dd/mm/yyyy" />
+                                                    <input class="form-control" name="fechaNacimiento" placeholder="dd/mm/yyyy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -136,41 +128,25 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="direccion" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Pais</label>
-                                                <div class="col-sm-9">
-                                                    <select name="pais" class="form-control">
-                                                        <option>Perú</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Departamento</label>
-                                                <div class="col-sm-9">
-                                                    <input name="departamento" type="text" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Distrito</label>
-                                                <div class="col-sm-9">
-                                                    <input name="distrito" type="text" class="form-control" />
+                                                    <input type="text" name="direccionEmpresa" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Provincia</label>
+                                                <label class="col-sm-3 col-form-label">Distrito</label>
                                                 <div class="col-sm-9">
-                                                    <input name="provincia" type="text" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Ciudad</label>
-                                                <div class="col-sm-9">
-                                                    <input name="ciudad" type="text" class="form-control" />
+                                                    <select name="distritoEmpresa" class="form-control">
+                                                        <option disabled selected>Seleccionar distrito</option>
+                                                        <% if (distritos) { 
+                                                            for (i = 0; i < distritos.length; i++) { 
+                                                                %>
+                                                                <option><%= distritos[i].nombre_ubigeo %></option>
+                                                        <%  }
+                                                        }
+                                                        %>
+                                                       
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -207,19 +183,15 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Teléfono</label>
                                                 <div class="col-sm-9">
-                                                    <input type="tel" name="telefono" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Celular</label>
-                                                <div class="col-sm-9">
-                                                        <input type="tel" name="celular" class="form-control" />
+                                                    <input type="tel" name="telefonoEmpresa" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <p class="card-description font-weight-bold">
+                                        Información servicios
+                                    </p>
+                                   
 
                                     <p class="card-description font-weight-bold mt-4">
                                         Dirección
@@ -232,38 +204,238 @@
                                                     <input type="text" name="direccion" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Pais</label>
-                                                <div class="col-sm-9">
-                                                    <select name="pais" class="form-control">
-                                                        <option>Perú</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Departamento</label>
-                                                <div class="col-sm-9">
-                                                    <input name="departamento" type="text" class="form-control" />
-                                                </div>
-                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Distrito</label>
                                                 <div class="col-sm-9">
-                                                    <input name="distrito" type="text" class="form-control" />
+                                                    <select name="distrito" class="form-control">
+                                                        <option disabled selected>Seleccionar distrito</option>
+                                                        <% if (distritos) { 
+                                                            for (i = 0; i < distritos.length; i++) { 
+                                                                %>
+                                                                <option><%= distritos[i].nombre_ubigeo %></option>
+                                                        <%  }
+                                                        }
+                                                        %>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Tipo de Fiestas</label>
+                                                <div class="col-sm-9">
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="babyShower" />
+                                                        <span class="mr-4">Baby Shower</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="karaoke" />
+                                                        <span class="mr-4">Karaoke</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="parrillada" />
+                                                        <span class="mr-4">Parrillada</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="coctel" />
+                                                        <span class="mr-4">Coctel</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="reunionesFamiliares" />
+                                                        <span class="mr-4">Reuniones Familiares</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="despedidasSoltero" />
+                                                        <span class="mr-4">Despedidas de Soltero</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="brunch" />
+                                                        <span class="mr-4">Brunch</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="quinceAnos" />
+                                                        <span class="mr-4">Quince Años</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaAdultos" />
+                                                        <span class="mr-4">Fiesta de Adultos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaInfantil" />
+                                                        <span class="mr-4">Fiesta de Infantil</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="bautizo" />
+                                                        <span class="mr-4">Bautizo</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="primeraComunion" />
+                                                        <span class="mr-4">Primera Comunion</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="matrimonio" />
+                                                        <span class="mr-4">Matrimonio</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="finAno" />
+                                                        <span class="mr-4">Fin de Año</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="halloween" />
+                                                        <span class="mr-4">Halloween</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="sanValentin" />
+                                                        <span class="mr-4">San Valentin</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="anoNuevoChino" />
+                                                        <span class="mr-4">Año Nuevo Chino</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioPaises" />
+                                                        <span class="mr-4">Aniversario de Paises</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioBodas" />
+                                                        <span class="mr-4">Aniversario de Bodas</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Provincia</label>
+                                            <label class="col-sm-3 col-form-label">Servicios</label>
                                                 <div class="col-sm-9">
-                                                    <input name="provincia" type="text" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Ciudad</label>
-                                                <div class="col-sm-9">
-                                                    <input name="ciudad" type="text" class="form-control" />
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="filmacionFotografia" />
+                                                        <span class="mr-4">Filmacion y Fotografia</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="horaLoca" />
+                                                        <span class="mr-4">Hora Loca</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="animacion" />
+                                                        <span class="mr-4">Animación</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="catering" />
+                                                        <span class="mr-4">Catering</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="pinateria" />
+                                                        <span class="mr-4">Piñateria</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="recuerdos" />
+                                                        <span class="mr-4">Recuerdos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="brindis" />
+                                                        <span class="mr-4">Brindis</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mesaBocaditos" />
+                                                        <span class="mr-4">Mesa de Bocaditos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="barraBar" />
+                                                        <span class="mr-4">Barra de Bar</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="foodTruck" />
+                                                        <span class="mr-4">Food Truck</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="torta" />
+                                                        <span class="mr-4">Torta</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="ambientacion" />
+                                                        <span class="mr-4">Ambientación</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mobiliario" />
+                                                        <span class="mr-4">Mobiliario</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="servicioParrillero" />
+                                                        <span class="mr-4">Servicio Parrillero</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="local" />
+                                                        <span class="mr-4">Local</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="sorpresas" />
+                                                        <span class="mr-4">Sorpresas</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="disfraces" />
+                                                        <span class="mr-4">Disfraces</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="carnes" />
+                                                        <span class="mr-4">Carnes</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mesasLounge" />
+                                                        <span class="mr-4">Mesas de Lounge</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="djParty" />
+                                                        <span class="mr-4">Dj Party</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="equipoSonido" />
+                                                        <span class="mr-4">Equipo de Sonido</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="luces" />
+                                                        <span class="mr-4">Luces</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="Orquesta" />
+                                                        <span class="mr-4">Orquesta</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="maestroCeremonias" />
+                                                        <span class="mr-4">Maestro de Ceremonias</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="invitaciones" />
+                                                        <span class="mr-4">Invitaciones</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="miniSpa" />
+                                                        <span class="mr-4">Mini Spa</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="caritasPintadas" />
+                                                        <span class="mr-4">Caritas Pintadas</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="transporte" />
+                                                        <span class="mr-4">Transporte</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="servicioCadetes" />
+                                                        <span class="mr-4">Servicio de Cadetes</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="chambelan" />
+                                                        <span class="mr-4">Chambelan</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="planner" />
+                                                        <span class="mr-4">Planner</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

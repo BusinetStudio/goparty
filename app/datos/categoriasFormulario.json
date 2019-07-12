@@ -1,0 +1,22 @@
+{
+  "babyShower": ["filmacionFotografia","animacion","recuerdos","catering","brindis","foodTruck","mesaBocaditos","barraBar","ambientacion","local","mobiliario","mesasLounge","invitaciones","genero","djParty","equipoSonido","luces","orquesta"],
+  "karaoke": ["filmacionFotografia","catering","brindis","mesaBocaditos","barraBar","ambientacion","mobiliario","mesasLounge","equipoSonido","luces"],
+  "parrillada": ["filmacionFotografia","animacion","brindis","barraBar","ambientacion","servicioParrillero","carnes","djParty","equipoSonido","luces","orquesta"],
+  "coctel": ["filmacionFotografia","catering","brindis","mesaBocaditos","barraBar","ambientacion","local","mobiliario","mesasLounge","maestroCeremonias","djParty","equipoSonido","luces","orquesta"],
+  "reunionesFamiliares":["horaLoca", "filmacionFotografia","pinateria","animacion","horaLoca","catering","brindis","foodTruck","mesaBocaditos","barraBar","ambientacion","local","maestroCeremonias","djParty","equipoSonido","luces","orquesta"],
+  "despedidasSoltero":["animacion","catering","brindis","barraBar","ambientacion","local","edad","djParty","luces"],
+  "brunch":[],
+  "quinceAnos":["filmacionFotografia","pinateria","recuerdos","horaLoca","catering","brindis","foodTruck","torta","mesaBocaditos","barraBar","ambientacion","local","mobiliario","mesasLounge","maestroCeremonias","transporte","servicioCadetes","chambelan","djParty","equipoSonido","luces","orquesta"],
+  "fiestaAdultos":["filmacionFotografia","pinateria","animacion","recuerdos","horaLoca","catering","brindis","foodTruck","torta","mesaBocaditos","barraBar","ambientacion","local","mobiliario","edad","maestroCeremonias","djParty","orquesta"],
+  "fiestaInfantil":["filmacionFotografia","pinateria","animacion","horaLoca","catering","foodTruck","torta","ambientacion","local","mobiliario","edad","sorpresas","miniSpa","caritasPintadas","djParty"],
+  "bautizo":["filmacionFotografia","pinateria","animacion","recuerdos","catering","brindis","foodTruck","torta","ambientacion","local","mobiliario","invitaciones","edad","miniSpa","caritasPintadas","djParty","equipoSonido","luces","orquesta","planner"],
+  "primeraComunion":["filmacionFotografia","pinateria","recuerdos","catering","brindis","torta","ambientacion","local","mobiliario","invitaciones","edad","genero","djParty","equipoSonido","luces","orquesta","planner"],
+  "matrimonio":["filmacionFotografia","pinateria","recuerdos","catering","brindis","foodTruck","torta","mesaBocaditos","ambientacion","local","mobiliario","invitaciones","transporte","djParty","equipoSonido","luces","orquesta","planner"],
+  "barmitzvah": ["filmacionFotografia","pinateria","catering","foodTruck","torta","ambientacion","local","mobiliario","edad","sorpresas","miniSpa","caritasPintadas","djParty","equipoSonido","luces","orquesta"],
+  "finAno": ["filmacionFotografia","pinateria","catering","brindis","foodTruck","mesaBocaditos","ambientacion","local","mobiliario","invitaciones","djParty","equipoSonido","luces","orquesta","planner"],
+  "halloween": ["filmacionFotografia","pinateria","catering","catering","brindis","foodTruck","ambientacion","local","mobiliario","invitaciones","sorpresas","disfraces","djParty","equipoSonido","luces","orquesta","planner"],
+  "sanValentin":["filmacionFotografia","pinateria","catering","brindis","foodTruck","ambientacion","local","mobiliario","invitaciones","sorpresas","miniSpa","djParty","equipoSonido","luces","orquesta","planner"],
+  "anoNuevoChino":["filmacionFotografia","pinateria","catering","brindis","ambientacion","local","mobiliario","sorpresas","disfraces","djParty","equipoSonido","luces","orquesta","planner"],
+  "aniversarioPaises":["filmacionFotografia","pinateria","animacion","catering","brindis","foodTruck","torta","ambientacion","local","mobiliario","invitaciones","sorpresas","miniSpa","caritasPintadas","djParty","equipoSonido","luces","orquesta"],
+  "aniversarioBodas":["filmacionFotografia","pinateria","recuerdos","catering","brindis","foodTruck","torta","mesaBocaditos","ambientacion","local","mobiliario","invitaciones","edad","djParty","equipoSonido","luces","orquesta","planner"]
+}

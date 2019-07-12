@@ -20,7 +20,16 @@ var UserSchema = new mongoose.Schema({
   celular: String,
   direccion: String,
   distrito: String,
+
+
   nombreEmpresa: String,
+  ruc: String,
+  telefonoEmpresa: String,
+  direccionEmpresa: String,
+  distritoEmpresa: String,
+
+  servicios: [],
+  tipoFiestas: [],
 
   popupCheckForm: {type: Boolean, default:true},
   popupInputMesagge: {type: Boolean, default:true}

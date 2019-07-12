@@ -10,28 +10,53 @@
                 <h2 class="mb-4">Editar Usuario</h2>
                 <div class="row justify-content-center">
                     <div class="col-12 grid-margin">
-                        <form class="form-sample" action="/usuarios/nuevo" method="POST">
+                        <form class="form-sample" action="/usuarios/editar" method="POST">
                             <div class="card mb-5">
                                 <div class="card-body">
-                                    <h4 class="card-title text-uppercase">Editar datos de la nueva cuenta</h4>
+                                <h4 class="card-title text-uppercase">Editar datos de la cuenta</h4>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="form-group row " id="privilegioRegisterChange">
+                                                <label class="col-sm-3 col-form-label">Tipo de usuario</label>
+                                                <div class="col-sm-8">
+                                                    <div class="form-radio">
+                                                        <label class="form-check-label">
+                                                            <select class="form-control" id="privilegioSelect" name="privilege">
+                                                                <% if (user.privilege == 'Usuario'){ %>
+                                                                    <option disabled>Seleccionar tipo de usuario</option>
+                                                                    <option value="Usuario" selected>Usuario</option>
+                                                                    <option value="Proveedor">Proveedor</option>
+                                                                <% } %>
+                                                                <% if (user.privilege == 'Proveedor'){ %>
+                                                                    <option disabled>Seleccionar tipo de usuario</option>
+                                                                    <option value="Usuario" >Usuario</option>
+                                                                    <option value="Proveedor" selected>Proveedor</option>
+                                                                <% } %>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Usuario</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" value="<%= usuario.username %>" class="form-control" name="username" />
+                                                    <input type="text" class="form-control" value="<%= user.username %>" name="username" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Correo Electrónico</label>
                                                 <div class="col-sm-9">
-                                                    <input type="email" value="<%= usuario.email %>" name="email" class="form-control" />
+                                                    <input type="email" name="email" value="<%= user.email %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Nueva Contraseña</label>
+                                                <label class="col-sm-3 col-form-label">Contraseña</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password" class="form-control" />
                                                 </div>
@@ -44,227 +69,410 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <% if(usuario.privilege == 'Admin'){ %>
-                                        <div class="row justify-content-end mt-4">
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </div>
-                                    <% } %>
                                 </div>
                             </div>
-                            <% if(usuario.privilege == 'Usuario'){ %>
-                                <div class="card" id="cliente">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-uppercase">Información del cliente</h4>
-                                        <p class="card-description font-weight-bold">
-                                            Información personal
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Nombres</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text"  value="<%= usuario.nombres %>" name="nombres" class="form-control" />
-                                                </div>
-                                                </div>
+                            <div class="card" id="usuario">
+                                <div class="card-body">
+                                    <h4 class="card-title text-uppercase">Información del cliente</h4>
+                                    <p class="card-description font-weight-bold">
+                                        Información personal
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Nombres y Apellidos</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="nombres" value="<%= user.nombreCompleto %>" class="form-control" />
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Apellidos</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" value="<%= usuario.apellidos %>" name="apellidos" class="form-control" />
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Genero</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="genero"  value="<%= usuario.genero %>" class="form-control">
-                                                            <option value="Masculino">Masculino</option>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Genero</label>
+                                                <div class="col-sm-9">
+                                                    <select name="genero" class="form-control">
+                                                        <% if(user.genero == 'Masculino'){ %>
+                                                            <option value="Masculino" selected>Masculino</option>
                                                             <option value="Femenino">Femenino</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
-                                                    <div class="col-sm-9">
-                                                        <input class="form-control" value="<%= usuario.fecha_nacimiento %>" name="fecha_nacimiento" placeholder="dd/mm/yyyy" />
-                                                    </div>
+                                                        <% } %>
+                                                        <% if(user.genero == 'Femenino'){ %>
+                                                            <option value="Masculino">Masculino</option>
+                                                            <option value="Femenino" selected>Femenino</option>
+                                                        <% } %>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Teléfono</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="tel" value="<%= usuario.telefono %>" name="telefono" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Celular</label>
-                                                    <div class="col-sm-9">
-                                                            <input type="tel" value="<%= usuario.celular %>" name="celular" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <p class="card-description font-weight-bold mt-4">
-                                            Dirección
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Dirección</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" value="<%= usuario.direccion %>" name="direccion" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Pais</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="pais"  value="<%= usuario.pais %>" class="form-control">
-                                                            <option>Perú</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Departamento</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="departamento" value="<%= usuario.departamento %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Distrito</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="distrito" value="<%= usuario.distrito %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Provincia</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="provincia" value="<%= usuario.provincia %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Ciudad</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="ciudad" value="<%= usuario.ciudad %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-end mt-4">
-                                            <button type="submit" class="btn btn-primary">Crear usuario</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% }else if(usuario.privilege == 'Proveedor'){ %>
-                                <div class="card" id="proveedor">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-uppercase">Información del proveedor</h4>
-                                        <p class="card-description font-weight-bold">
-                                            Información empresa
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Empresa</label>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" value="<%= usuario.empresa %>" name="empresa" class="form-control" />
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">RUC</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" value="<%= usuario.ruc %>" name="ruc" class="form-control" />
-                                                    </div>
+                                                    <input class="form-control" name="fecha_nacimiento"  value="<%= user.fechaNacimiento %>" placeholder="dd/mm/yyyy" />
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Teléfono</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="tel" value="<%= usuario.telefono %>" name="telefono" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Celular</label>
-                                                    <div class="col-sm-9">
-                                                            <input type="tel" value="<%= usuario.celular %>" name="celular" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <p class="card-description font-weight-bold mt-4">
-                                            Dirección
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Dirección</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" value="<%= usuario.direccion %>" name="direccion" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Pais</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="pais" value="<%= usuario.pais %>" class="form-control">
-                                                            <option>Perú</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Departamento</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="departamento" value="<%= usuario.departamento %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Distrito</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="distrito" value="<%= usuario.distrito %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Provincia</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="provincia" value="<%= usuario.provincia %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Ciudad</label>
-                                                    <div class="col-sm-9">
-                                                        <input name="ciudad" value="<%= usuario.ciudad %>" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-end mt-4">
-                                            <button type="submit" class="btn btn-primary">Crear Usuario</button>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" name="telefono"  value="<%= user.telefono %>" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Celular</label>
+                                                <div class="col-sm-9">
+                                                        <input type="tel" name="celular"  value="<%= user.celular %>" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-description font-weight-bold mt-4">
+                                        Dirección
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="direccion"  value="<%= user.direccion %>" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Distrito</label>
+                                                <div class="col-sm-9">
+                                                    <select name="distrito" class="form-control">
+                                                        <option disabled selected>Seleccionar distrito</option>
+                                                        <% if (distritos) { 
+                                                            for (i = 0; i < distritos.length; i++) { 
+                                                                if (user.distrito == distritos[i].nombre_ubigeo){
+                                                                %>
+                                                                    <option selected><%= distritos[i].nombre_ubigeo %></option>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                    <option><%= distritos[i].nombre_ubigeo %></option>
+                                                        <%      }
+                                                            }
+                                                        }
+                                                        %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
                                 </div>
-                            <% } %>
+                            </div>
+                            <div class="card" id="proveedor">
+                                <div class="card-body">
+                                    <h4 class="card-title text-uppercase">Información del proveedor</h4>
+                                    <p class="card-description font-weight-bold">
+                                        Información empresa
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Empresa</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="empresa" value="<%= user.empresa %>" class="form-control" />
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">RUC</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="ruc" value="<%= user.ruc %>" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" name="telefonoEmpresa"  value="<%= user.telefonoEmpresa %>" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-description font-weight-bold mt-4">
+                                        Dirección
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="direccionEmpresa" class="form-control" value="<%= user.direccionEmpresa %>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Distrito</label>
+                                                <div class="col-sm-9">
+                                                    <select name="distritoEmpresa" class="form-control">
+                                                        <option disabled selected>Seleccionar distrito</option>
+                                                        <% if (distritos) { 
+                                                            for (i = 0; i < distritos.length; i++) { 
+                                                                if (user.distritoEmpresa == distritos[i].nombre_ubigeo){
+                                                                %>
+                                                                    <option selected><%= distritos[i].nombre_ubigeo %></option>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                    <option><%= distritos[i].nombre_ubigeo %></option>
+                                                        <%      }
+                                                            }
+                                                        }
+                                                        %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Tipo de Fiestas</label>
+                                                <% 
+                                                    function buscarArray (array, value) {
+                                                        if(array){
+                                                            for (var i = 0; i < array.length; i++) {
+                                                                if(array[i] == value){return "true"}
+                                                            }
+                                                        }
+                                                        return "false"
+                                                    }
+                                                %>
+                                                <div class="col-sm-9">
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas" data-check="<%= buscarArray(user.tipoFiestas,'babyShower') %>"  value="babyShower" />
+                                                        <span class="mr-4">Baby Shower</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="karaoke" data-check="<%= buscarArray(user.tipoFiestas,'karaoke') %>" />
+                                                        <span class="mr-4">Karaoke</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="parrillada" data-check="<%= buscarArray(user.tipoFiestas,'parrillada') %>" />
+                                                        <span class="mr-4">Parrillada</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="coctel" data-check="<%= buscarArray(user.tipoFiestas,'coctel') %>" />
+                                                        <span class="mr-4">Coctel</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="reunionesFamiliares" data-check="<%= buscarArray(user.tipoFiestas,'reunionesFamiliares') %>" />
+                                                        <span class="mr-4">Reuniones Familiares</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="despedidasSoltero" data-check="<%= buscarArray(user.tipoFiestas,'despedidasSoltero') %>" />
+                                                        <span class="mr-4">Despedidas de Soltero</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="brunch" data-check="<%= buscarArray(user.tipoFiestas,'brunch') %>" />
+                                                        <span class="mr-4">Brunch</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="quinceAnos" data-check="<%= buscarArray(user.tipoFiestas,'quinceAnos') %>" />
+                                                        <span class="mr-4">Quince Años</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaAdultos" data-check="<%= buscarArray(user.tipoFiestas,'fiestaAdultos') %>" />
+                                                        <span class="mr-4">Fiesta de Adultos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaInfantil" data-check="<%= buscarArray(user.tipoFiestas,'fiestaInfantil') %>" />
+                                                        <span class="mr-4">Fiesta de Infantil</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="bautizo" data-check="<%= buscarArray(user.tipoFiestas,'bautizo') %>" />
+                                                        <span class="mr-4">Bautizo</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="primeraComunion" data-check="<%= buscarArray(user.tipoFiestas,'primeraComunion') %>" />
+                                                        <span class="mr-4">Primera Comunion</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="matrimonio" data-check="<%= buscarArray(user.tipoFiestas,'matrimonio') %>" />
+                                                        <span class="mr-4">Matrimonio</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="finAno" data-check="<%= buscarArray(user.tipoFiestas,'finAno') %>" />
+                                                        <span class="mr-4">Fin de Año</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="halloween" data-check="<%= buscarArray(user.tipoFiestas,'halloween') %>" />
+                                                        <span class="mr-4">Halloween</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="sanValentin" data-check="<%= buscarArray(user.tipoFiestas,'sanValentin') %>" />
+                                                        <span class="mr-4">San Valentin</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="anoNuevoChino" data-check="<%= buscarArray(user.tipoFiestas,'anoNuevoChino') %>" />
+                                                        <span class="mr-4">Año Nuevo Chino</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioPaises" data-check="<%= buscarArray(user.tipoFiestas,'aniversarioPaises') %>" />
+                                                        <span class="mr-4">Aniversario de Paises</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioBodas" data-check="<%= buscarArray(user.tipoFiestas,'aniversarioBodas') %>" />
+                                                        <span class="mr-4">Aniversario de Bodas</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Servicios</label>
+                                                <div class="col-sm-9">
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="filmacionFotografia"  data-check="<%= buscarArray(user.servicios,'filmacionFotografia') %>" />
+                                                        <span class="mr-4">Filmacion y Fotografia</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="horaLoca" data-check="<%= buscarArray(user.servicios,'horaLoca') %>" />
+                                                        <span class="mr-4">Hora Loca</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="animacion" data-check="<%= buscarArray(user.servicios,'animacion') %>" />
+                                                        <span class="mr-4">Animación</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="catering" data-check="<%= buscarArray(user.servicios,'catering') %>" />
+                                                        <span class="mr-4">Catering</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="pinateria" data-check="<%= buscarArray(user.servicios,'pinateria') %>" />
+                                                        <span class="mr-4">Piñateria</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="recuerdos" data-check="<%= buscarArray(user.servicios,'recuerdos') %>" />
+                                                        <span class="mr-4">Recuerdos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="brindis" data-check="<%= buscarArray(user.servicios,'brindis') %>" />
+                                                        <span class="mr-4">Brindis</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mesaBocaditos" data-check="<%= buscarArray(user.servicios,'mesaBocaditos') %>" />
+                                                        <span class="mr-4">Mesa de Bocaditos</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="barraBar" data-check="<%= buscarArray(user.servicios,'barraBar') %>" />
+                                                        <span class="mr-4">Barra de Bar</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="foodTruck" data-check="<%= buscarArray(user.servicios,'foodTruck') %>" />
+                                                        <span class="mr-4">Food Truck</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="torta" data-check="<%= buscarArray(user.servicios,'torta') %>" />
+                                                        <span class="mr-4">Torta</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="ambientacion" data-check="<%= buscarArray(user.servicios,'ambientacion') %>" />
+                                                        <span class="mr-4">Ambientación</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mobiliario" data-check="<%= buscarArray(user.servicios,'mobiliario') %>" />
+                                                        <span class="mr-4">Mobiliario</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="servicioParrillero" data-check="<%= buscarArray(user.servicios,'servicioParrillero') %>" />
+                                                        <span class="mr-4">Servicio Parrillero</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="local" data-check="<%= buscarArray(user.servicios,'local') %>" />
+                                                        <span class="mr-4">Local</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="sorpresas" data-check="<%= buscarArray(user.servicios,'sorpresas') %>" />
+                                                        <span class="mr-4">Sorpresas</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="disfraces" data-check="<%= buscarArray(user.servicios,'disfraces') %>" />
+                                                        <span class="mr-4">Disfraces</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="carnes" data-check="<%= buscarArray(user.servicios,'carnes') %>" />
+                                                        <span class="mr-4">Carnes</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="mesasLounge" data-check="<%= buscarArray(user.servicios,'mesasLounge') %>" />
+                                                        <span class="mr-4">Mesas de Lounge</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="djParty" data-check="<%= buscarArray(user.servicios,'djParty') %>" />
+                                                        <span class="mr-4">Dj Party</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="equipoSonido" data-check="<%= buscarArray(user.servicios,'equipoSonido') %>" />
+                                                        <span class="mr-4">Equipo de Sonido</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="luces" data-check="<%= buscarArray(user.servicios,'luces') %>" />
+                                                        <span class="mr-4">Luces</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="orquesta" data-check="<%= buscarArray(user.servicios,'orquesta') %>" />
+                                                        <span class="mr-4">Orquesta</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="maestroCeremonias" data-check="<%= buscarArray(user.servicios,'maestroCeremonias') %>" />
+                                                        <span class="mr-4">Maestro de Ceremonias</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="invitaciones" data-check="<%= buscarArray(user.servicios,'invitaciones') %>" />
+                                                        <span class="mr-4">Invitaciones</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="miniSpa" data-check="<%= buscarArray(user.servicios,'miniSpa') %>" />
+                                                        <span class="mr-4">Mini Spa</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="caritasPintadas" data-check="<%= buscarArray(user.servicios,'caritasPintadas') %>" />
+                                                        <span class="mr-4">Caritas Pintadas</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="transporte" data-check="<%= buscarArray(user.servicios,'transporte') %>" />
+                                                        <span class="mr-4">Transporte</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="servicioCadetes" data-check="<%= buscarArray(user.servicios,'servicioCadetes') %>" />
+                                                        <span class="mr-4">Servicio de Cadetes</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="chambelan" data-check="<%= buscarArray(user.servicios,'chambelan') %>" />
+                                                        <span class="mr-4">Chambelan</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" name="servicios"  value="planner" data-check="<%= buscarArray(user.servicios,'planner') %>" />
+                                                        <span class="mr-4">Planner</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="_id" value="<%= user._id %>">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -284,5 +492,37 @@
          </div>
       <!-- main-panel ends -->
     </div>
+
+    <script>
+        var selector = document.getElementById('privilegioSelect');
+        var usuario = document.getElementById('usuario');
+        var proveedor = document.getElementById('proveedor');
+        usuario.style.display = 'none';
+        proveedor.style.display = 'none';
+        function privilegios(){
+            if(selector.value == 'Usuario'){
+                usuario.style.display = 'block';
+                proveedor.style.display = 'none';
+            }else if(selector.value == 'Proveedor'){
+                proveedor.style.display = 'block';
+                usuario.style.display = 'none';
+            }else{
+                usuario.style.display = 'none';
+                proveedor.style.display = 'none';
+            }
+        }
+        privilegios();
+        selector.addEventListener("change", function(){
+            privilegios();
+        });
+
+
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]')
+        checkboxes.forEach(function(currentValue, currentIndex, listObj) {
+            if(currentValue.attributes['data-check'].value == 'true'){
+                currentValue.checked = true;
+            }
+        });
+    </script>
     <!-- page-body-wrapper ends -->
 <%- include('../footer'); -%>

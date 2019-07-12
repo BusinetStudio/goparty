@@ -95,21 +95,5 @@
         }
       }
     }); 
-
-    $('[name="privilegio"]').change(function(){
-      if( $(this).val() == 2){
-        $('#proveedor').addClass('d-none');
-        $('#cliente').removeClass('d-none');
-      }else if( $(this).val() == 3){
-        $('#cliente').addClass('d-none');
-        $('#proveedor').removeClass('d-none');
-      }
-      $('input').each(function(){
-        $(this).val('');
-      });
-      $('select').each(function(){
-        $(this).val('');
-      });
-    });
 } );
 })(jQuery);
