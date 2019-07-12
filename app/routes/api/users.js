@@ -42,8 +42,6 @@ router.put('/user', auth.required, function(req, res, next){
 router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
-    failureFlash: true,
-    badRequestMessage: 'Usuario o contraseña incorrectos',
   }, function(err, user, info){
     if(err){ return res.send({success : false, error: err}); } 
     if(user){
