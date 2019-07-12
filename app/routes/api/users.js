@@ -42,6 +42,7 @@ router.put('/user', auth.required, function(req, res, next){
 router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
+    badRequestMessage: 'Debe rellenar todos los campos.'
   }, function(err, user, info){
     if(!user){ return res.json({success : false, error: info}); } 
     if(err){ return res.json({success : false, error: err}); } 
