@@ -49,7 +49,7 @@ router.post('/users/login', function(req, res, next){
       user.token = user.generateJWT();
       return res.json({user: user.toAuthJSON()});
     } else {
-      return res.status(422).json(info);
+      return res.json({error: info});
     }
   })(req, res, next);
 });
