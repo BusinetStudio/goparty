@@ -40,7 +40,7 @@ passport.use('app',new LocalStrategy(
                 return done(null, false, {message: 'Debe rellenar los campos'} );
             }
             return done(null, user);
-        }).catch(done);
+        }).catch(err =>done(err));
     }
 ));
 

@@ -43,13 +43,9 @@ router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
   }, function(err, user, info){
-    if(err){ return res.json({success : false, error: err}); } 
-    if(user){
-      user.token = user.generateJWT();
-      return res.json({success : true, user: user.toAuthJSON()});
-    } else {
-      return res.json({success : false, error: info});
-    }
+    if(err || !user){ return res.status(400).json({success : false, error: err}); } 
+    user.token = user.generateJWT();
+    return res.json({success : true, user: user.toAuthJSON()});
   })(req, res, next);
 });
 router.post('/users/update', function(req, res, next){
