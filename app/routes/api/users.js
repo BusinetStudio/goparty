@@ -42,14 +42,15 @@ router.put('/user', auth.required, function(req, res, next){
 router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
+    failureFlash: true,
     badRequestMessage: 'Usuario o contraseña incorrectos',
   }, function(err, user, info){
-    if(err){ return res.json(err); } 
+    if(err){ return res.send({success : false, error: err}); } 
     if(user){
       user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
+      return res.send({success : true, user: user.toAuthJSON()});
     } else {
-      return res.json({error: info});
+      return res.send({success : false, error: info});
     }
   })(req, res, next);
 });
