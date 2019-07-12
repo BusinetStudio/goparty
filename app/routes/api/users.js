@@ -43,12 +43,12 @@ router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
   }, function(err, user, info){
-    if(err){ return res.send({success : false, error: err}); } 
+    if(err){ return res.json({success : false, error: err}); } 
     if(user){
       user.token = user.generateJWT();
-      return res.send({success : true, user: user.toAuthJSON()});
+      return res.json({success : true, user: user.toAuthJSON()});
     } else {
-      return res.send({success : false, error: info});
+      return res.json({success : false, error: info});
     }
   })(req, res, next);
 });
