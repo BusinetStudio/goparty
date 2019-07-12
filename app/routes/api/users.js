@@ -44,8 +44,7 @@ router.post('/users/login', function(req, res, next){
     session: false,
     badRequestMessage: 'Debe rellenar todos los campos.'
   }, function(err, user, info){
-    if(!user){ return res.json({success : false, error: info}); } 
-    if(err){ return res.json({success : false, error: err}); } 
+    if(!user || err){ return res.json({success : false, error: info, err: err}); } 
     user.token = user.generateJWT();
     return res.json({success : true, user: user.toAuthJSON()});
   })(req, res, next);
