@@ -33,15 +33,16 @@ passport.use(new LocalStrategy(
 passport.use('app',new LocalStrategy(
     function(username, password, done) {
         User.findOne({username: username}).then(function(user){
+            
+            if( !user ){
+                return done(null, false, { message: 'Usuario incorrecto.' });
+            }
             if( !user.validPassword(password)){
-                console.log('contraseña incorrecta');
                 return done(null, false, {message: 'Contraseña incorrecta'} );
             }
-            else if( !username && !password){
-                return done(null, false, {message: 'Debe rellenar los campos'} );
-            }
             return done(null, user);
-        }).catch(err =>done(err));
+            
+        });
     }
 ));
 
