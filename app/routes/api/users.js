@@ -44,7 +44,7 @@ router.post('/users/login', function(req, res, next){
     session: false,
     badRequestMessage: 'Usuario o contraseña incorrectos',
   }, function(err, user, info){
-    if(err){ console.log(err); return res.json({error: err}); } 
+    if(err){ return res.json(err); } 
     if(user){
       user.token = user.generateJWT();
       return res.json({user: user.toAuthJSON()});
