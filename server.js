@@ -41,6 +41,8 @@ mongoose.connect('mongodb://rogue789:rogue195@ds149984.mlab.com:49984/heroku_w8j
 mongoose.set('debug', true);
 
 require('./app/models/usuarios');
+require('./app/models/eventos');
+require('./app/models/cotizaciones');
 
 
 // required for passport
