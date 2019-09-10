@@ -31,13 +31,16 @@ Documentación del webservices para partyapp
 ```
 ### Rutas
 
-POST: __##url del host##__/api/users/login //Login
+POST: __##url del host##__/api/users/login 
+
 {username:"nombre de usuario",password:"password"}
 
-POST: __##url del host##__/api/users/ //Registro
+POST: __##url del host##__/api/users/
+
 {"... datos obligatorios a insertar del schema"}
 
-POST: __##url del host##__/api/users/update //actualizar datos
+POST: __##url del host##__/api/users/update
+
 {_id:"id del usuario", "... datos a actualizar del schema"}
 
 
@@ -62,15 +65,19 @@ POST: __##url del host##__/api/users/update //actualizar datos
 ### Rutas
 
 POST: __##url del host##__/api/eventos/getFiestas
+
 { id_usuario: "id del usuario" }
 
 POST: __##url del host##__/api/eventos/getFiestaById
+
 { _id: "id de la fiesta a consultar"}
 
 POST: __##url del host##__/api/eventos/nuevaFiesta
+
 {"... datos obligatorios del schema"}
 
 POST: __##url del host##__/api/eventos/borrarFiesta
+
 { _id: "id de la fiesta a borrar"}
 
 
@@ -88,21 +95,27 @@ POST: __##url del host##__/api/eventos/borrarFiesta
 ### Rutas
 
 POST: __##url del host##__/api/cotizaciones/getCotizaciones
+
 { id_proveedor: "id del proveedor" }
 
 POST: __##url del host##__/api/cotizaciones/getCotizacionByEvento
+
 { id_usuario: "id del usuario", id_evento: "id de la fiesta" }
 
 POST: __##url del host##__/api/cotizaciones/getCotizacionById
+
 { _id: "id de la cotizacion" }
 
 POST: __##url del host##__/api/cotizaciones/aceptarCotizacion
+
 { _id: "id de la cotizacion" }
 
 POST: __##url del host##__/api/cotizaciones/nuevaCotizacion
+
 {"... datos obligatorios del schema"}
 
 POST: __##url del host##__/api/cotizaciones/borrarCotizacion
+
 { _id: "id de la cotizacion" }
 
 
