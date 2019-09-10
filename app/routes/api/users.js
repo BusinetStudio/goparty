@@ -4,16 +4,16 @@ var passport = require('passport');
 var User = mongoose.model('Usuarios');
 var auth = require('../auth');
 
-router.get('/user', auth.required, function(req, res, next){
-  User.findById(req.payload.id).then(function(user){
+router.get('/user', auth, function(req, res, next){
+  console.log(req.user)
+  User.findById(req.user.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
-
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
 
-router.put('/user', auth.required, function(req, res, next){
-  User.findById(req.payload.id).then(function(user){
+router.put('/user', auth, function(req, res, next){
+  User.findById(req.user.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
     // only update fields that were actually passed...

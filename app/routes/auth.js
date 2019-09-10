@@ -1,27 +1,23 @@
-var jwt = require('express-jwt');
-var secret = require('../../config').secret;
+var config = require('../../config');
+const jwt  = require ('jsonwebtoken');
 
-function getTokenFromHeader(req){
-  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
-      req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-    return req.headers.authorization.split(' ')[1];
+
+let checkToken = (req, res, next) => {
+  let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+  if (token.startsWith('Bearer ')) {
+    // Remove Bearer from string
+    token = token.slice(7, token.length);
   }
-
-  return null;
-}
-
-var auth = {
-  required: jwt({
-    secret: secret,
-    userProperty: 'payload',
-    getToken: getTokenFromHeader
-  }),
-  optional: jwt({
-    secret: secret,
-    userProperty: 'payload',
-    credentialsRequired: false,
-    getToken: getTokenFromHeader
-  })
+  if (token) {
+    const decoded = jwt.verify(token, config.secret);
+    req.user = decoded;
+    next();
+  } else {
+    return res.json({
+      success: false,
+      message: 'Auth token is not supplied'
+    });
+  }
 };
 
-module.exports = auth;
+module.exports = checkToken
