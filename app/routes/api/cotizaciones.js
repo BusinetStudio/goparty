@@ -5,7 +5,7 @@ var Cotizaciones = mongoose.model('Cotizaciones');
 
 
 router.post('/getCotizaciones', function(req, res, next){
-    Eventos.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, result) {
+    Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, result) {
         if (err) throw err;
         if (result) { res.json({valid:true, result: result}) } 
         else {
@@ -15,7 +15,7 @@ router.post('/getCotizaciones', function(req, res, next){
 });
 
 router.post('/getCotizacionByEvento', function(req, res, next){
-    Eventos.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }, function (err, result) {
+    Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }, function (err, result) {
         if (err) throw err;
         if (result) { res.json({valid:true, result: result}) } 
         else {
@@ -27,7 +27,7 @@ router.post('/getCotizacionByEvento', function(req, res, next){
 
 
 router.post('/getCotizacionById', function(req, res, next){
-    Eventos.find({ _id: req.body.id }, function (err, result) {
+    Cotizaciones.find({ _id: req.body.id }, function (err, result) {
         if (err) throw err;
         if (result) { res.json({valid:true, result: result}) } 
         else {
@@ -40,7 +40,7 @@ router.post('/aceptarCotizacion', function(req, res, next){
     var query = { '_id':req.body.id };
     var datos = {aceptado: true};
     delete datos.id;
-    User.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
+    Cotizaciones.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
         (err2, todo) => {
           if (err2) return res.json({valid:false});
           else return res.json({valid: true})
