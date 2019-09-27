@@ -50,13 +50,12 @@ router.post('/aceptarCotizacion', function(req, res, next){
 
 router.post('/nuevaCotizacion', function(req, res, next){
     var Cotizacion = new Cotizaciones();
-    req.body.forEach((e,i)=>{
-        Cotizacion[i] = e 
-    })
+    for(key in req.body){
+        Cotizacion[key] = req.body[key];
+      }
     Cotizacion.save().then(function(){
         return res.json({valid: true});
     }).catch(next);
-    return res.json({valid:false})
 }); 
 
 router.post('/borrarCotizacion', function(req, res, next){

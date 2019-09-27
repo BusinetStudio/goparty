@@ -25,7 +25,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 // set up our express application
 
 app.use(cors())
-require('./config/passport'); // pass passport for configuration
+
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
@@ -60,6 +60,7 @@ require('./app/models/cotizaciones');
 
 
 // required for passport
+require('./config/passport'); // pass passport for configuration
 
 app.use(session({ 
   secret: 'secret',

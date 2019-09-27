@@ -12,6 +12,20 @@ router.post('/getFiestas', function(req, res, next){
     });
 });
 
+router.post('/getFiestasProveedor', function(req, res, next){
+    Eventos.find.find({ servicios_solicitados : { $all : req.body.servicios_solicitados }}, function (err, result) {
+        if (err) throw err;
+        if (result) { res.json({valid:true, result: result}) } 
+        else {
+            res.json({valid:false})
+        }
+    });
+});
+
+
+
+
+
 router.post('/getFiestaById', function(req, res, next){
     Eventos.find({ _id: req.body.id }, function (err, result) {
         if (err) throw err;
@@ -26,14 +40,12 @@ router.post('/nuevaFiesta', function(req, res, next){
    
     var Evento = new Eventos();
     
-    req.body.forEach((e,i)=>{
-        Evento[i] = e 
-    })
+    for(key in req.body){
+        Evento[key] = req.body[key];
+      }
     Evento.save().then(function(){
         return res.json({valid: true});
     }).catch(next);
-    
-    return res.json({valid:false})
 }); 
 
 router.post('/borrarFiesta', function(req, res, next){
