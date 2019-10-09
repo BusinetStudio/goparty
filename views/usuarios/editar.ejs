@@ -82,7 +82,7 @@
                                             <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Nombres y Apellidos</label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="nombres" value="<%= user.nombreCompleto %>" class="form-control" />
+                                                <input type="text" name="nombreCompleto" value="<%= profile.nombreCompleto %>" class="form-control" />
                                             </div>
                                             </div>
                                         </div>
@@ -93,11 +93,11 @@
                                                 <label class="col-sm-3 col-form-label">Genero</label>
                                                 <div class="col-sm-9">
                                                     <select name="genero" class="form-control">
-                                                        <% if(user.genero == 'Masculino'){ %>
+                                                        <% if(profile.genero == 'Masculino'){ %>
                                                             <option value="Masculino" selected>Masculino</option>
                                                             <option value="Femenino">Femenino</option>
                                                         <% } %>
-                                                        <% if(user.genero == 'Femenino'){ %>
+                                                        <% if(profile.genero == 'Femenino'){ %>
                                                             <option value="Masculino">Masculino</option>
                                                             <option value="Femenino" selected>Femenino</option>
                                                         <% } %>
@@ -109,7 +109,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="fecha_nacimiento"  value="<%= user.fechaNacimiento %>" placeholder="dd/mm/yyyy" />
+                                                    <input class="form-control" name="fecha_nacimiento"  value="<%= profile.fechaNacimiento %>" placeholder="dd/mm/yyyy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Teléfono</label>
                                                 <div class="col-sm-9">
-                                                    <input type="tel" name="telefono"  value="<%= user.telefono %>" class="form-control" />
+                                                    <input type="tel" name="telefono"  value="<%= profile.telefono %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Celular</label>
                                                 <div class="col-sm-9">
-                                                        <input type="tel" name="celular"  value="<%= user.celular %>" class="form-control" />
+                                                        <input type="tel" name="celular"  value="<%= profile.celular %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="direccion"  value="<%= user.direccion %>" class="form-control" />
+                                                    <input type="text" name="direccion"  value="<%= profile.direccion %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                                         <option disabled selected>Seleccionar distrito</option>
                                                         <% if (distritos) { 
                                                             for (i = 0; i < distritos.length; i++) { 
-                                                                if (user.distrito == distritos[i].nombre_ubigeo){
+                                                                if (profile.distrito == distritos[i].nombre_ubigeo){
                                                                 %>
                                                                     <option selected><%= distritos[i].nombre_ubigeo %></option>
                                                                 <%
@@ -169,7 +169,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
                                 </div>
                             </div>
                             <div class="card" id="proveedor">
@@ -183,7 +182,7 @@
                                             <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Empresa</label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="empresa" value="<%= user.empresa %>" class="form-control" />
+                                                <input type="text" name="empresa" value="<%= profile.empresa %>" class="form-control" />
                                             </div>
                                             </div>
                                         </div>
@@ -191,7 +190,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">RUC</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="ruc" value="<%= user.ruc %>" class="form-control" />
+                                                    <input type="text" name="ruc" value="<%= profile.ruc %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -201,7 +200,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Teléfono</label>
                                                 <div class="col-sm-9">
-                                                    <input type="tel" name="telefonoEmpresa"  value="<%= user.telefonoEmpresa %>" class="form-control" />
+                                                    <input type="tel" name="telefonoEmpresa"  value="<%= profile.telefonoEmpresa %>" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -215,7 +214,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="direccionEmpresa" class="form-control" value="<%= user.direccionEmpresa %>"/>
+                                                    <input type="text" name="direccionEmpresa" class="form-control" value="<%= profile.direccionEmpresa %>"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -227,7 +226,7 @@
                                                         <option disabled selected>Seleccionar distrito</option>
                                                         <% if (distritos) { 
                                                             for (i = 0; i < distritos.length; i++) { 
-                                                                if (user.distritoEmpresa == distritos[i].nombre_ubigeo){
+                                                                if (profile.distritoEmpresa == distritos[i].nombre_ubigeo){
                                                                 %>
                                                                     <option selected><%= distritos[i].nombre_ubigeo %></option>
                                                                 <%
@@ -259,79 +258,79 @@
                                                 %>
                                                 <div class="col-sm-9">
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas" data-check="<%= buscarArray(user.tipoFiestas,'babyShower') %>"  value="babyShower" />
+                                                        <input type="checkbox" name="tipoFiestas" data-check="<%= buscarArray(profile.tipoFiestas,'babyShower') %>"  value="babyShower" />
                                                         <span class="mr-4">Baby Shower</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="karaoke" data-check="<%= buscarArray(user.tipoFiestas,'karaoke') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="karaoke" data-check="<%= buscarArray(profile.tipoFiestas,'karaoke') %>" />
                                                         <span class="mr-4">Karaoke</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="parrillada" data-check="<%= buscarArray(user.tipoFiestas,'parrillada') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="parrillada" data-check="<%= buscarArray(profile.tipoFiestas,'parrillada') %>" />
                                                         <span class="mr-4">Parrillada</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="coctel" data-check="<%= buscarArray(user.tipoFiestas,'coctel') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="coctel" data-check="<%= buscarArray(profile.tipoFiestas,'coctel') %>" />
                                                         <span class="mr-4">Coctel</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="reunionesFamiliares" data-check="<%= buscarArray(user.tipoFiestas,'reunionesFamiliares') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="reunionesFamiliares" data-check="<%= buscarArray(profile.tipoFiestas,'reunionesFamiliares') %>" />
                                                         <span class="mr-4">Reuniones Familiares</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="despedidasSoltero" data-check="<%= buscarArray(user.tipoFiestas,'despedidasSoltero') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="despedidasSoltero" data-check="<%= buscarArray(profile.tipoFiestas,'despedidasSoltero') %>" />
                                                         <span class="mr-4">Despedidas de Soltero</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="brunch" data-check="<%= buscarArray(user.tipoFiestas,'brunch') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="brunch" data-check="<%= buscarArray(profile.tipoFiestas,'brunch') %>" />
                                                         <span class="mr-4">Brunch</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="quinceAnos" data-check="<%= buscarArray(user.tipoFiestas,'quinceAnos') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="quinceAnos" data-check="<%= buscarArray(profile.tipoFiestas,'quinceAnos') %>" />
                                                         <span class="mr-4">Quince Años</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaAdultos" data-check="<%= buscarArray(user.tipoFiestas,'fiestaAdultos') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaAdultos" data-check="<%= buscarArray(profile.tipoFiestas,'fiestaAdultos') %>" />
                                                         <span class="mr-4">Fiesta de Adultos</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaInfantil" data-check="<%= buscarArray(user.tipoFiestas,'fiestaInfantil') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="fiestaInfantil" data-check="<%= buscarArray(profile.tipoFiestas,'fiestaInfantil') %>" />
                                                         <span class="mr-4">Fiesta de Infantil</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="bautizo" data-check="<%= buscarArray(user.tipoFiestas,'bautizo') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="bautizo" data-check="<%= buscarArray(profile.tipoFiestas,'bautizo') %>" />
                                                         <span class="mr-4">Bautizo</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="primeraComunion" data-check="<%= buscarArray(user.tipoFiestas,'primeraComunion') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="primeraComunion" data-check="<%= buscarArray(profile.tipoFiestas,'primeraComunion') %>" />
                                                         <span class="mr-4">Primera Comunion</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="matrimonio" data-check="<%= buscarArray(user.tipoFiestas,'matrimonio') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="matrimonio" data-check="<%= buscarArray(profile.tipoFiestas,'matrimonio') %>" />
                                                         <span class="mr-4">Matrimonio</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="finAno" data-check="<%= buscarArray(user.tipoFiestas,'finAno') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="finAno" data-check="<%= buscarArray(profile.tipoFiestas,'finAno') %>" />
                                                         <span class="mr-4">Fin de Año</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="halloween" data-check="<%= buscarArray(user.tipoFiestas,'halloween') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="halloween" data-check="<%= buscarArray(profile.tipoFiestas,'halloween') %>" />
                                                         <span class="mr-4">Halloween</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="sanValentin" data-check="<%= buscarArray(user.tipoFiestas,'sanValentin') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="sanValentin" data-check="<%= buscarArray(profile.tipoFiestas,'sanValentin') %>" />
                                                         <span class="mr-4">San Valentin</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="anoNuevoChino" data-check="<%= buscarArray(user.tipoFiestas,'anoNuevoChino') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="anoNuevoChino" data-check="<%= buscarArray(profile.tipoFiestas,'anoNuevoChino') %>" />
                                                         <span class="mr-4">Año Nuevo Chino</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioPaises" data-check="<%= buscarArray(user.tipoFiestas,'aniversarioPaises') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioPaises" data-check="<%= buscarArray(profile.tipoFiestas,'aniversarioPaises') %>" />
                                                         <span class="mr-4">Aniversario de Paises</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioBodas" data-check="<%= buscarArray(user.tipoFiestas,'aniversarioBodas') %>" />
+                                                        <input type="checkbox" name="tipoFiestas"  value="aniversarioBodas" data-check="<%= buscarArray(profile.tipoFiestas,'aniversarioBodas') %>" />
                                                         <span class="mr-4">Aniversario de Bodas</span>
                                                     </div>
                                                 </div>
@@ -342,127 +341,127 @@
                                             <label class="col-sm-3 col-form-label">Servicios</label>
                                                 <div class="col-sm-9">
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="filmacionFotografia"  data-check="<%= buscarArray(user.servicios,'filmacionFotografia') %>" />
+                                                        <input type="checkbox" name="servicios"  value="filmacionFotografia"  data-check="<%= buscarArray(profile.servicios,'filmacionFotografia') %>" />
                                                         <span class="mr-4">Filmacion y Fotografia</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="horaLoca" data-check="<%= buscarArray(user.servicios,'horaLoca') %>" />
+                                                        <input type="checkbox" name="servicios"  value="horaLoca" data-check="<%= buscarArray(profile.servicios,'horaLoca') %>" />
                                                         <span class="mr-4">Hora Loca</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="animacion" data-check="<%= buscarArray(user.servicios,'animacion') %>" />
+                                                        <input type="checkbox" name="servicios"  value="animacion" data-check="<%= buscarArray(profile.servicios,'animacion') %>" />
                                                         <span class="mr-4">Animación</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="catering" data-check="<%= buscarArray(user.servicios,'catering') %>" />
+                                                        <input type="checkbox" name="servicios"  value="catering" data-check="<%= buscarArray(profile.servicios,'catering') %>" />
                                                         <span class="mr-4">Catering</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="pinateria" data-check="<%= buscarArray(user.servicios,'pinateria') %>" />
+                                                        <input type="checkbox" name="servicios"  value="pinateria" data-check="<%= buscarArray(profile.servicios,'pinateria') %>" />
                                                         <span class="mr-4">Piñateria</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="recuerdos" data-check="<%= buscarArray(user.servicios,'recuerdos') %>" />
+                                                        <input type="checkbox" name="servicios"  value="recuerdos" data-check="<%= buscarArray(profile.servicios,'recuerdos') %>" />
                                                         <span class="mr-4">Recuerdos</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="brindis" data-check="<%= buscarArray(user.servicios,'brindis') %>" />
+                                                        <input type="checkbox" name="servicios"  value="brindis" data-check="<%= buscarArray(profile.servicios,'brindis') %>" />
                                                         <span class="mr-4">Brindis</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="mesaBocaditos" data-check="<%= buscarArray(user.servicios,'mesaBocaditos') %>" />
+                                                        <input type="checkbox" name="servicios"  value="mesaBocaditos" data-check="<%= buscarArray(profile.servicios,'mesaBocaditos') %>" />
                                                         <span class="mr-4">Mesa de Bocaditos</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="barraBar" data-check="<%= buscarArray(user.servicios,'barraBar') %>" />
+                                                        <input type="checkbox" name="servicios"  value="barraBar" data-check="<%= buscarArray(profile.servicios,'barraBar') %>" />
                                                         <span class="mr-4">Barra de Bar</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="foodTruck" data-check="<%= buscarArray(user.servicios,'foodTruck') %>" />
+                                                        <input type="checkbox" name="servicios"  value="foodTruck" data-check="<%= buscarArray(profile.servicios,'foodTruck') %>" />
                                                         <span class="mr-4">Food Truck</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="torta" data-check="<%= buscarArray(user.servicios,'torta') %>" />
+                                                        <input type="checkbox" name="servicios"  value="torta" data-check="<%= buscarArray(profile.servicios,'torta') %>" />
                                                         <span class="mr-4">Torta</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="ambientacion" data-check="<%= buscarArray(user.servicios,'ambientacion') %>" />
+                                                        <input type="checkbox" name="servicios"  value="ambientacion" data-check="<%= buscarArray(profile.servicios,'ambientacion') %>" />
                                                         <span class="mr-4">Ambientación</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="mobiliario" data-check="<%= buscarArray(user.servicios,'mobiliario') %>" />
+                                                        <input type="checkbox" name="servicios"  value="mobiliario" data-check="<%= buscarArray(profile.servicios,'mobiliario') %>" />
                                                         <span class="mr-4">Mobiliario</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="servicioParrillero" data-check="<%= buscarArray(user.servicios,'servicioParrillero') %>" />
+                                                        <input type="checkbox" name="servicios"  value="servicioParrillero" data-check="<%= buscarArray(profile.servicios,'servicioParrillero') %>" />
                                                         <span class="mr-4">Servicio Parrillero</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="local" data-check="<%= buscarArray(user.servicios,'local') %>" />
+                                                        <input type="checkbox" name="servicios"  value="local" data-check="<%= buscarArray(profile.servicios,'local') %>" />
                                                         <span class="mr-4">Local</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="sorpresas" data-check="<%= buscarArray(user.servicios,'sorpresas') %>" />
+                                                        <input type="checkbox" name="servicios"  value="sorpresas" data-check="<%= buscarArray(profile.servicios,'sorpresas') %>" />
                                                         <span class="mr-4">Sorpresas</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="disfraces" data-check="<%= buscarArray(user.servicios,'disfraces') %>" />
+                                                        <input type="checkbox" name="servicios"  value="disfraces" data-check="<%= buscarArray(profile.servicios,'disfraces') %>" />
                                                         <span class="mr-4">Disfraces</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="carnes" data-check="<%= buscarArray(user.servicios,'carnes') %>" />
+                                                        <input type="checkbox" name="servicios"  value="carnes" data-check="<%= buscarArray(profile.servicios,'carnes') %>" />
                                                         <span class="mr-4">Carnes</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="mesasLounge" data-check="<%= buscarArray(user.servicios,'mesasLounge') %>" />
+                                                        <input type="checkbox" name="servicios"  value="mesasLounge" data-check="<%= buscarArray(profile.servicios,'mesasLounge') %>" />
                                                         <span class="mr-4">Mesas de Lounge</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="djParty" data-check="<%= buscarArray(user.servicios,'djParty') %>" />
+                                                        <input type="checkbox" name="servicios"  value="djParty" data-check="<%= buscarArray(profile.servicios,'djParty') %>" />
                                                         <span class="mr-4">Dj Party</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="equipoSonido" data-check="<%= buscarArray(user.servicios,'equipoSonido') %>" />
+                                                        <input type="checkbox" name="servicios"  value="equipoSonido" data-check="<%= buscarArray(profile.servicios,'equipoSonido') %>" />
                                                         <span class="mr-4">Equipo de Sonido</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="luces" data-check="<%= buscarArray(user.servicios,'luces') %>" />
+                                                        <input type="checkbox" name="servicios"  value="luces" data-check="<%= buscarArray(profile.servicios,'luces') %>" />
                                                         <span class="mr-4">Luces</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="orquesta" data-check="<%= buscarArray(user.servicios,'orquesta') %>" />
+                                                        <input type="checkbox" name="servicios"  value="orquesta" data-check="<%= buscarArray(profile.servicios,'orquesta') %>" />
                                                         <span class="mr-4">Orquesta</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="maestroCeremonias" data-check="<%= buscarArray(user.servicios,'maestroCeremonias') %>" />
+                                                        <input type="checkbox" name="servicios"  value="maestroCeremonias" data-check="<%= buscarArray(profile.servicios,'maestroCeremonias') %>" />
                                                         <span class="mr-4">Maestro de Ceremonias</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="invitaciones" data-check="<%= buscarArray(user.servicios,'invitaciones') %>" />
+                                                        <input type="checkbox" name="servicios"  value="invitaciones" data-check="<%= buscarArray(profile.servicios,'invitaciones') %>" />
                                                         <span class="mr-4">Invitaciones</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="miniSpa" data-check="<%= buscarArray(user.servicios,'miniSpa') %>" />
+                                                        <input type="checkbox" name="servicios"  value="miniSpa" data-check="<%= buscarArray(profile.servicios,'miniSpa') %>" />
                                                         <span class="mr-4">Mini Spa</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="caritasPintadas" data-check="<%= buscarArray(user.servicios,'caritasPintadas') %>" />
+                                                        <input type="checkbox" name="servicios"  value="caritasPintadas" data-check="<%= buscarArray(profile.servicios,'caritasPintadas') %>" />
                                                         <span class="mr-4">Caritas Pintadas</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="transporte" data-check="<%= buscarArray(user.servicios,'transporte') %>" />
+                                                        <input type="checkbox" name="servicios"  value="transporte" data-check="<%= buscarArray(profile.servicios,'transporte') %>" />
                                                         <span class="mr-4">Transporte</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="servicioCadetes" data-check="<%= buscarArray(user.servicios,'servicioCadetes') %>" />
+                                                        <input type="checkbox" name="servicios"  value="servicioCadetes" data-check="<%= buscarArray(profile.servicios,'servicioCadetes') %>" />
                                                         <span class="mr-4">Servicio de Cadetes</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="chambelan" data-check="<%= buscarArray(user.servicios,'chambelan') %>" />
+                                                        <input type="checkbox" name="servicios"  value="chambelan" data-check="<%= buscarArray(profile.servicios,'chambelan') %>" />
                                                         <span class="mr-4">Chambelan</span>
                                                     </div>
                                                     <div>
-                                                        <input type="checkbox" name="servicios"  value="planner" data-check="<%= buscarArray(user.servicios,'planner') %>" />
+                                                        <input type="checkbox" name="servicios"  value="planner" data-check="<%= buscarArray(profile.servicios,'planner') %>" />
                                                         <span class="mr-4">Planner</span>
                                                     </div>
                                                 </div>
@@ -470,9 +469,9 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="_id" value="<%= user._id %>">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
                     </div>
                 </div>

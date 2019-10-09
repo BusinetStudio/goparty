@@ -5,38 +5,14 @@ var jwt = require('jsonwebtoken');
 var secret = require('../../config').secret;
 
 var UserSchema = new mongoose.Schema({
-  username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
-  email: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
+  username: {type: String, lowercase: true, unique: true, required: [true, "no puede estar vacio"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
+  email: {type: String, lowercase: true, unique: true, required: [true, "no puede estar vacio"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
   privilege: {type: String, default: 'Usuario', enum: ['Usuario', 'Admin', 'Proveedor'] },
-  image: {type: String, default: '/images/smiley-cyrus.jpg'},
-
   hash: String,
   salt: String,
-
-  nombreCompleto: String,
-  fechaNacimiento: String,
-  genero: {type: String, enum: ['Femenino', 'Masculino']},
-  telefono: String,
-  celular: String,
-  direccion: String,
-  distrito: String,
-
-
-  nombreEmpresa: String,
-  ruc: String,
-  telefonoEmpresa: String,
-  direccionEmpresa: String,
-  distritoEmpresa: String,
-
-  servicios: [],
-  tipoFiestas: [],
-
-  popupCheckForm: {type: Boolean, default:true},
-  popupInputMesagge: {type: Boolean, default:true}
-
 }, {timestamps: true});
 
-UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+UserSchema.plugin(uniqueValidator, {message: 'ya esta en uso.'});
 
 UserSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
@@ -65,18 +41,8 @@ UserSchema.methods.toAuthJSON = function(){
     id: this._id,
     username: this.username,
     email: this.email,
-    nombreCompleto: this.nombreCompleto,
-    token: this.generateJWT(),
-    image: this.image,
-    fechaNacimiento: this.fechaNacimiento,
-    genero: this.genero,
-    telefono: this.telefono,
-    celular: this.celular,
-    direccion: this.direccion,
-    distrito: this.distrito,
-    nombreEmpresa: this.nombreEmpresa,
-    popupCheckForm: this.popupCheckForm,
-    popupInputMesagge: this.popupInputMesagge
+    privilege: this.privilege,
+    token: this.generateJWT()
   };
 };
 

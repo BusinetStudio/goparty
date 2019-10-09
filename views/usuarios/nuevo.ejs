@@ -10,7 +10,7 @@
                 <h2 class="mb-4">Agregar Usuario</h2>
                 <div class="row justify-content-center">
                     <div class="col-12 grid-margin">
-                        <form class="form-sample" action="/usuarios/nuevo" method="POST">
+                        <form class="form-sample"  id="form" action="/usuarios/nuevo" method="POST">
                             <div class="card mb-5">
                                 <div class="card-body">
                                 <h4 class="card-title text-uppercase">Agregar datos de la nueva cuenta</h4>
@@ -22,7 +22,7 @@
                                                     <div class="form-radio">
                                                         <label class="form-check-label">
                                                             <select class="form-control" id="privilegioSelect" name="privilege">
-                                                                <option disabled selected>Seleccionar tipo de usuario</option>
+                                                                <option disabled selected value=''>Seleccionar tipo de usuario</option>
                                                                 <option value="Usuario">Usuario</option>
                                                                 <option value="Proveedor">Proveedor</option>
                                                             </select>
@@ -57,7 +57,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Repetir contraseña</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" class="form-control" />
+                                                    <input type="password" name="rePassword" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="direccionEmpresa" class="form-control" />
+                                                    <input type="text" name="direccion" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Distrito</label>
                                                 <div class="col-sm-9">
-                                                    <select name="distritoEmpresa" class="form-control">
+                                                    <select name="distrito" class="form-control">
                                                         <option disabled selected>Seleccionar distrito</option>
                                                         <% if (distritos) { 
                                                             for (i = 0; i < distritos.length; i++) { 
@@ -151,7 +151,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
                                 </div>
                             </div>
                             <div class="card" id="proveedor">
@@ -201,7 +200,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dirección</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="direccion" class="form-control" />
+                                                    <input type="text" name="direccionEmpresa" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +208,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Distrito</label>
                                                 <div class="col-sm-9">
-                                                    <select name="distrito" class="form-control">
+                                                    <select name="distritoEmpresa" class="form-control">
                                                         <option disabled selected>Seleccionar distrito</option>
                                                         <% if (distritos) { 
                                                             for (i = 0; i < distritos.length; i++) { 
@@ -440,9 +439,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary">Crear usuario</button>
                         </form>
                     </div>
                 </div>
@@ -481,6 +480,78 @@
                 proveedor.style.display = 'none';
             }
         });
+
+        // FORM SUBMIT
+        var form = document.getElementById('form');
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            formValidate()
+        });
+        function formValidate(){
+            var data = {
+                'privilege' : document.getElementsByName('privilege')[0].value,
+                'username' : document.getElementsByName('username')[0].value,
+                'email' : document.getElementsByName('email')[0].value,
+                'password' : document.getElementsByName('password')[0].value,
+                'rePassword' : document.getElementsByName('rePassword')[0].value,
+                'profile': {}
+            }
+            if(data.password != data.rePassword) return alert('Contraseñas no coinciden');
+            if(data.privilege === 'Usuario'){
+                var nombreCompleto = document.getElementsByName('nombreCompleto')[0].value;
+                if(nombreCompleto) data.profile.nombreCompleto = nombreCompleto
+                var genero = document.getElementsByName('genero')[0].value;
+                if(genero) data.profile.genero = genero
+                var fechaNacimiento = document.getElementsByName('fechaNacimiento')[0].value;
+                if(fechaNacimiento) data.profile.fechaNacimiento = fechaNacimiento
+                var telefono = document.getElementsByName('telefono')[0].value;
+                if(telefono) data.profile.telefono = telefono
+                var celular = document.getElementsByName('celular')[0].value;
+                if(celular) data.profile.celular = celular
+                var direccion = document.getElementsByName('direccion')[0].value;
+                if(direccion) data.profile.direccion = direccion
+                var distrito = document.getElementsByName('distrito')[0].value;
+                if(distrito) data.profile.distrito = distrito  
+            }else if(data.privilege === 'Proveedor'){
+                var empresa = document.getElementsByName('empresa')[0].value;
+                if(empresa) data.profile.empresa = empresa
+                var ruc = document.getElementsByName('ruc')[0].value;
+                if(ruc) data.profile.ruc = ruc
+                var telefonoEmpresa = document.getElementsByName('telefonoEmpresa')[0].value;
+                if(telefonoEmpresa) data.profile.telefonoEmpresa = telefonoEmpresa
+                var direccionEmpresa = document.getElementsByName('direccionEmpresa')[0].value;
+                if(direccionEmpresa) data.profile.direccionEmpresa = direccionEmpresa
+                var distritoEmpresa = document.getElementsByName('distritoEmpresa')[0].value;
+                if(distritoEmpresa) data.profile.distritoEmpresa = distritoEmpresa
+                var tipoFiestasCheckboxes = document.getElementsByName('tipoFiestas');
+                var serviciosCheckboxes = document.getElementsByName('servicios');
+                var tipoFiestas = [];
+                var servicios = [];
+                for (var i = 0; i < tipoFiestasCheckboxes.length; i++) {
+                    var checkbox = tipoFiestasCheckboxes[i];
+                    if (checkbox.checked) tipoFiestas.push(checkbox.value);
+                }
+                if(tipoFiestas.length > 0) data.profile.tipoFiestas = tipoFiestas
+                for (var i = 0; i < serviciosCheckboxes.length; i++) {
+                    var checkbox = serviciosCheckboxes[i];
+                    if (checkbox.checked) servicios.push(checkbox.value);
+                }
+                if(servicios.length > 0) data.profile.servicios = servicios
+            }
+           
+            axios({
+                method: 'post',
+                url: '/usuarios/nuevo',
+                data: data
+            }).then(r=>{
+                if(r.data.valid){
+                    window.location.replace("/usuarios/todos");
+                }else{
+                    alert('error')
+                }
+            });
+        }
+
     </script>
     <!-- page-body-wrapper ends -->
 <%- include('../footer'); -%>

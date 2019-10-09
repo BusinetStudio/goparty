@@ -6,28 +6,11 @@ Documentación del webservices para partyapp
 
 ### Schema de usuarios
 ```
-  username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
-  email: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
+  username: {type: String, lowercase: true, unique: true, required: [true, "no puede estar vacio"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
+  email: {type: String, lowercase: true, unique: true, required: [true, "no puede estar vacio"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
   privilege: {type: String, default: 'Usuario', enum: ['Usuario', 'Admin', 'Proveedor'] },
-  image: {type: String, default: '/images/smiley-cyrus.jpg'},
   hash: String,
   salt: String,
-  nombreCompleto: String,
-  fechaNacimiento: String,
-  genero: {type: String, enum: ['Femenino', 'Masculino']},
-  telefono: String,
-  celular: String,
-  direccion: String,
-  distrito: String,
-  nombreEmpresa: String,
-  ruc: String,
-  telefonoEmpresa: String,
-  direccionEmpresa: String,
-  distritoEmpresa: String,
-  servicios: [], //Arreglo de servicios ofrecidos
-  tipoFiestas: [],  //Arreglo de tipo de fiestas ofrecias
-  popupCheckForm: {type: Boolean, default:true}, //Popup de informacion aceptado
-  popupInputMesagge: {type: Boolean, default:true} //Popup de informacion aceptado
 ```
 ### Rutas
 
@@ -42,6 +25,50 @@ POST: __##url del host##__/api/users/
 POST: __##url del host##__/api/users/update
 
 {_id:"id del usuario", "... datos a actualizar del schema"}
+
+### Schema de perfiles usuarios
+```
+  id_usuario: {type: String, required: [true, "no puede estar vacio"], unique: true,},
+  image: {type: String, default: '/images/smiley-cyrus.jpg'},
+  nombreCompleto: String,
+  fechaNacimiento: String,
+  genero: {type: String, enum: ['Femenino', 'Masculino']},
+  telefono: String,
+  celular: String,
+  direccion: String,
+  distrito: String,
+  popupCheckForm: {type: Boolean, default:true},
+  popupInputMesagge: {type: Boolean, default:true}
+```
+### Rutas
+POST: __##url del host##__/api/users/usuarioProfileUpdate
+
+{id_usuario:"id del usuario", "... datos a actualizar del schema"}
+
+
+### Schema de perfiles Proveedores
+```
+  id_proveedor: {type: String, required: [true, "no puede estar vacio"], unique: true,},
+  image: {type: String, default: '/images/smiley-cyrus.jpg'},
+  nombreEmpresa: String,
+  ruc: String,
+  telefonoEmpresa: String,
+  direccionEmpresa: String,
+  distritoEmpresa: String,
+  servicios: [],
+  tipoFiestas: []
+```
+### Rutas
+obtener perfil del proveedor
+POST: __##url del host##__/api/users/proveedorProfile
+
+{id_proveedor :"id del proveedor"}
+
+actualizar perfil proveedor
+POST: __##url del host##__/api/users/proveedorProfileUpdate
+
+{id_proveedor :"id del proveedor", "... datos a actualizar del schema"}
+
 
 
 ## Eventos

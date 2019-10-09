@@ -3,19 +3,18 @@
 // set up ======================================================================
 // get all the tools we need
 var express  				= require('express'),
-		session  				= require('express-session'),
-		cookieParser		= require('cookie-parser'),
-		bodyParser 			= require('body-parser'),
-		morgan 					= require('morgan'),
-		app     				= express(),
-		errorhandler 		= require('errorhandler'),
-		passport 				= require('passport'),
-		flash   				= require('connect-flash'),
-		mongoose 				= require('mongoose'),
-		MongoStore = require('connect-mongo')(session),
-		cors = require('cors'),
-		dotenv = require("dotenv");
-// configuration ===============================================================
+	session  				= require('express-session'),
+	cookieParser		= require('cookie-parser'),
+	bodyParser 			= require('body-parser'),
+	morgan 					= require('morgan'),
+	app     				= express(),
+	errorhandler 		= require('errorhandler'),
+	passport 				= require('passport'),
+	flash   				= require('connect-flash'),
+	mongoose 				= require('mongoose'),
+	MongoStore = require('connect-mongo')(session),
+	cors = require('cors'),
+	dotenv = require("dotenv");
 dotenv.config();  
 var http = require('http');
 const server = http.createServer(app);
@@ -55,6 +54,8 @@ mongoose.connect('mongodb://rogue789:rogue195@ds149984.mlab.com:49984/heroku_w8j
 mongoose.set('debug', true);
 
 require('./app/models/usuarios');
+require('./app/models/usuariosInfo');
+require('./app/models/proveedoresInfo');
 require('./app/models/eventos');
 require('./app/models/cotizaciones');
 
