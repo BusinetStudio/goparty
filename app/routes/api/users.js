@@ -94,4 +94,18 @@ router.post('/users/proveedorProfile', function(req, res, next){
   )
 });
 
+router.post('/users/proveedorPuntuar', async function(req, res, next){
+  var info = await ProveedoresInfo.findOne({id_proveedor: req.body.id_proveedor});
+  var puntaje = ( (info.puntaje * info.numPuntuados) + req.body.puntaje ) / (info.numPuntuados + 1);
+  var numPuntuados = numPuntuados + 1;
+  ProveedoresInfo.findOneAndUpdate(
+    {id_proveedor: req.body.id_proveedor},
+    {puntaje: puntaje, numPuntuados: numPuntuados},
+    (err, resp) => {
+      if (err) return res.status(500).send(err);
+      else res.json({success: true, data: resp})
+    }
+  )
+});
+
 module.exports = router;

@@ -9,7 +9,9 @@ var ProveedoresInfoSchema = new mongoose.Schema({
   direccionEmpresa: String,
   distritoEmpresa: String,
   servicios: [],
-  tipoFiestas: []
+  tipoFiestas: [],
+  puntaje: {type: Number, default: 0},
+  numPuntuados: {type: Number, default: 0}
 }, {timestamps: true});
 
 

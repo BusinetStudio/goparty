@@ -69,6 +69,10 @@ POST: __##url del host##__/api/users/proveedorProfileUpdate
 
 {id_proveedor :"id del proveedor", "... datos a actualizar del schema"}
 
+Puntuar proveedor
+POST: __##url del host##__/api/users/proveedorPuntuar
+
+{id_proveedor :"id del proveedor", puntaje: "Puntuación que dio el usuario"}
 
 
 ## Eventos
