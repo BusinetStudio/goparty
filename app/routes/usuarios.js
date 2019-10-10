@@ -101,7 +101,7 @@ router.post('/nuevo', function(req, res, next){
           return res.json({valid: true})
         })
       }else if(data.privilege === 'Proveedor'){
-        var profile = new ProveedorInfo();
+        var profile = new ProveedoresInfo();
         if(data.profile){
           for(key in data.profile){
             profile[key] = data.profile[key];

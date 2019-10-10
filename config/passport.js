@@ -10,13 +10,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('Usuarios');
-
-
+var UsuariosInfo = mongoose.model('UsuariosInfo');
+var ProveedoresInfo = mongoose.model('ProveedoresInfo');
+ 
 
 passport.use(new LocalStrategy(
     {passReqToCallback : true},
     function(req, username, password, done) {
-        User.findOne({username: username}).then(function(user){
+        User.findOne({username: username}).then(async function(user){
             if(!user ){
                 return done(null, false, req.flash('message', 'Usuario incorrecto.') );
             }
@@ -26,7 +27,15 @@ passport.use(new LocalStrategy(
             else if( !username && !password){
                 return done(null, false, req.flash('message', 'Debe rellenar todos los campos.') );
             }
-            return done(null, user);
+            if(user.privilege==='Usuario'){
+                var profile = await UsuariosInfo.findOne({id_usuario: user._id})
+                return done(null, {user: user, profile: profile});
+            }else if(user.privilege==='Proveedor'){
+                var profile = await ProveedoresInfo.findOne({id_usuario: user._id})
+                return done(null, {user: user, profile: profile});
+            }else{
+                return done(null, user);
+            }
         }).catch(done);
     }
 ));
