@@ -21,7 +21,7 @@ router.post('/users/login', function(req, res, next){
       var profile = await UsuariosInfo.findOne({id_usuario: datosUsuario.id});
       return res.json({success : true, user: datosUsuario, profile: profile});
     }else if(datosUsuario.privilege === 'Proveedor'){
-      var profile = await ProveedoresInfo.findByOne({id_proveedor: datosUsuario.id});
+      var profile = await ProveedoresInfo.findOne({id_proveedor: datosUsuario.id});
       return res.json({success : true, user: datosUsuario, profile: profile});
     }
     return res.json({success : false});

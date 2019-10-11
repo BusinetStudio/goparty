@@ -227,7 +227,7 @@ module.exports = function(passport) {
     new GoogleStrategy({
         clientID: '653015851148-jpfm471lcv3oe04ts4lgrcb8bsf8odes.apps.googleusercontent.com',
         clientSecret: 'fAQ8tEF0mA52Ok-7Z8PzoBEK',
-        callbackURL: 'https://gopartyperu.herokuapp.com/auth/google-movil/callback'
+        callbackURL: 'https://PartyAppperu.herokuapp.com/auth/google-movil/callback'
     },
     (token, refreshToken, profile, done) => {
         process.nextTick(function () {
@@ -251,7 +251,7 @@ module.exports = function(passport) {
     passport.use(new GoogleStrategy({
         clientID: '653015851148-jpfm471lcv3oe04ts4lgrcb8bsf8odes.apps.googleusercontent.com',
         clientSecret: 'fAQ8tEF0mA52Ok-7Z8PzoBEK',
-        callbackURL: 'https://gopartyperu.herokuapp.com/auth/google/callback'
+        callbackURL: 'https://PartyAppperu.herokuapp.com/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
         process.nextTick(function () {

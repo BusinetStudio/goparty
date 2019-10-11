@@ -9,35 +9,44 @@
             <div class="content-wrapper">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4">Usuarios</h2>
+                        <h2 class="mb-4">Fiestas</h2> 
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <table id="dataTable" class="display table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Usuario</th>
-                                            <th>Correo Electrónico</th>
-                                            <th>Tipo de usuario</th>
-                                            <th>Opciones</th>
+                                            <th>Nombre de la fiesta</th>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Usuario</th>
-                                            <th>Correo Electrónico</th>
-                                            <th>Tipo de usuario</th>
-                                            <th>Opciones</th>
+                                            <th>Nombre de la fiesta</th>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <%  usuarios.forEach(function(usuario){ %>
+                                        <%  eventos.forEach(function(evento){ %>
                                                 <tr>
-                                                    <td><%= usuario.username %></td>
-                                                    <td><%= usuario.email %></td>
-                                                    <td><%= usuario.privilege %></td>
+                                                    <td><%= evento.nombre_usuario %></td>
+                                                    <td><%= evento.nombre %></td>
+                                                    <td><%= evento.fecha_del_evento %></td>
+                                                    <td><%= evento.hora_del_evento %></td>
                                                     <td class="text-right">
-                                                        <a href="/usuarios/editar/<%= usuario.id %>" class="text-warning info mr-3"><i class="fas fa-edit"></i></a>
-                                                        <a href="/usuarios/borrar/<%= usuario.id %>" class="text-danger"><i class="fas fa-times"></i></a>
+                                                        <a href="/fiestas/editar/<%= evento.id %>"  class="text-warning info mr-3">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="/fiestas/borrar/<%= evento.id %>" class="text-danger">
+                                                            <i class="fas fa-times"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                         <% }) %>
@@ -54,7 +63,7 @@
             <footer class="footer">
                 <div class="container-fluid clearfix">
                     <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
-                    <a href="https://PartyApp.com/" target="_blank">PartyApp</a>. Todos los derechos reservados.</span>
+                    <a href="https://partyapp.pe/" target="_blank">PartyApp</a>. Todos los derechos reservados.</span>
                     <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hecho con
                     <i class="mdi mdi-heart text-danger"></i> por <a href="https://businet-web.com">Businet</a>
                     </span>

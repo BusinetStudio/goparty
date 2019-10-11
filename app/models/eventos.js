@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+ 
 var EventosSchema = new mongoose.Schema({
   id_usuario: {type: String, required: [true, "can't be blank"]},
   nombre: {type: String, required: [true, "can't be blank"]},

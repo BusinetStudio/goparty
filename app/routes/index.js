@@ -44,6 +44,9 @@ router.post('/registro', function(req, res, next){
 
 router.use('/usuarios', isAdmin, require('./usuarios'));
 router.use('/cuenta', isLoggedIn, require('./cuenta'));
+router.use('/fiestas',isAdmin, require('./fiestas'));
+
+
 router.use('/api', require('./api'));
 
 
