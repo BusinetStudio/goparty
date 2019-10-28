@@ -5,7 +5,6 @@ var EventosSchema = new mongoose.Schema({
   nombre: {type: String, required: [true, "can't be blank"]},
   fecha_del_evento: {type: String, required: [true, "can't be blank"]},
   hora_del_evento:{type: String, required: [true, "can't be blank"]},
-  local: {type: Boolean, required: [true, "can't be blank"]},
   direccion: String,
   distrito: String,
   multiple_local: [],
@@ -13,6 +12,6 @@ var EventosSchema = new mongoose.Schema({
   ninos: {type: Number, required: [true, "can't be blank"]},
   categoria:{type: String, required: [true, "can't be blank"]},
   servicios_solicitados: [],
-  servicios: []
+  servicios: {}
 }, {timestamps: true});
 mongoose.model('Eventos', EventosSchema);

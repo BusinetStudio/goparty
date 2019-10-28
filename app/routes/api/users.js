@@ -40,7 +40,7 @@ router.post('/users/update', function(req, res, next){
   )
 
 });
-router.post('/users', async function(req, res, next){
+router.post('/users/register', async function(req, res, next){
   var user = new User();
   user.username = req.body.username;
   user.email = req.body.email;
@@ -57,7 +57,7 @@ router.post('/users', async function(req, res, next){
   var dataProfile = await profile.save();
 
   console.log(dataProfile)
-  return res.json({user: user.toAuthJSON(), profile: dataProfile});
+  return res.json({success:true, user: user.toAuthJSON(), profile: dataProfile});
 });
 
 router.post('/users/usuarioProfileUpdate', function(req, res, next){
