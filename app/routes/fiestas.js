@@ -33,6 +33,7 @@ router.get('/editar/:id', async function(req, res, next){
   });
 })
 router.get('/borrar/:id', async function(req, res, next){
+  console.log(req.params.id);
   Eventos.deleteOne({ _id: req.params.id });
   return res.redirect('/fiestas/');
 })
