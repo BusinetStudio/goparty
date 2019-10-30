@@ -18,7 +18,8 @@ router.get('/login', function(req, res) {
 });
 router.post('/login', function(req, res, next){
   if (req.body.remember) {
-    req.session.cookie.maxAge = 1000 * 60 * 3;
+	req.session.cookie.maxAge = 1000 * 60 * 3;
+	req.session.cookie.expires = false;
   } else {
     req.session.cookie.expires = false;
   }
