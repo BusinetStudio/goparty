@@ -34,7 +34,7 @@ router.get('/editar/:id', async function(req, res, next){
 })
 router.get('/borrar/:id', async function(req, res, next){
   Eventos.deleteOne({ _id: req.params.id });
-  return res.redirect('/usuarios/todos/');
+  return res.redirect('/fiestas/');
 })
 
 module.exports = router;
