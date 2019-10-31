@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var Cotizaciones = mongoose.model('Cotizaciones');
-
+var ProveedoresInfo = mongoose.model('ProveedoresInfo');
 
 
 router.post('/getCotizaciones', function(req, res, next){
     Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, result) {
         if (err) throw err;
-        if (result) { res.json({valid:true, result: result}) } 
+        if (result) { return res.json({valid:true, result: result}) } 
         else {
-            res.json({valid:false})
+            return res.json({valid:false})
         }
     });
 });
@@ -17,9 +17,19 @@ router.post('/getCotizaciones', function(req, res, next){
 router.post('/getCotizacionByEvento', function(req, res, next){
     Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }, function (err, result) {
         if (err) throw err;
-        if (result) { res.json({valid:true, result: result}) } 
+        if (result) { 
+            result.forEach((e,i)=>{
+                ProveedoresInfo.findById(req.body.id_usuario, function(err2, profile){
+                    if(err2) throw err;
+                    if(profile) { 
+                        result[i].assign(profile);
+                        return res.json({valid:true, result:result})
+                    }
+                })
+            })
+        } 
         else {
-            res.json({valid:false})
+            return res.json({valid:false})
         }
     });
 });
@@ -27,11 +37,11 @@ router.post('/getCotizacionByEvento', function(req, res, next){
 
 
 router.post('/getCotizacionById', function(req, res, next){
-    Cotizaciones.find({ _id: req.body.id }, function (err, result) {
+    Cotizaciones.findById(req.body.id, function (err, result) {
         if (err) throw err;
-        if (result) { res.json({valid:true, result: result}) } 
+        if (result) { return res.json({valid:true, result: result}) } 
         else {
-            res.json({valid:false})
+            return res.json({valid:false})
         }
     });
 });
