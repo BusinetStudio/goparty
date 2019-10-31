@@ -19,7 +19,7 @@ router.post('/getCotizacionByEvento', function(req, res, next){
         if (err) console.log(err);
         if (result) { 
             result.forEach((e,i)=>{
-                ProveedoresInfo.findById(req.body.id_usuario, function(err2, profile){
+                ProveedoresInfo.findOne({id_usuario: req.body.id_usuario}, function(err2, profile){
                     if(err2) console.log(err2);
                     if(profile) { 
                         result[i].assign(profile);
