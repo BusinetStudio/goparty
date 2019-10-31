@@ -50,6 +50,7 @@ router.post('/nuevaFiesta', function(req, res, next){
 }); 
 
 router.post('/borrarFiesta', function(req, res, next){
+    console.log(req.body.id);
     Eventos.deleteOne({_id: req.body.id}, function (err) {
         if(err) return res.json({valid:false});
         else return res.json({valid:true});
