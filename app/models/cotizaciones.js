@@ -6,6 +6,8 @@ var CotizacionesSchema = new mongoose.Schema({
   id_evento: {type: String, required: [true, "can't be blank"]},
   aceptada: Boolean,
   fecha_de_cotizacion: {type: String, required: [true, "can't be blank"]},
-  cotizacion : []
+  servicios:[],
+  cotizacion : [],
+  total: Number
 }, {timestamps: true});
 mongoose.model('Cotizaciones', CotizacionesSchema);
