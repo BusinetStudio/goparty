@@ -24,7 +24,7 @@ router.post('/getCotizacionByEvento', function(req, res, next){
                 ProveedoresInfo.findOne({id_proveedor: e.id_proveedor}, function(err2, profile){
                     if(err2) console.log(err2);
                     if(profile) { 
-                        result[i].assign(profile);
+                        result[i] = {...result[i], ...profile};
                         return res.json({valid:true, result:result})
                     }
                 })
