@@ -55,6 +55,6 @@ router.post('/borrarFiesta', function(req, res, next){
         if(err) return res.json({valid:false});
         else return res.json({valid:true});
     });
-    return res.json({valid:false})
+    //return res.json({valid:false})
 }); 
 module.exports = router;
