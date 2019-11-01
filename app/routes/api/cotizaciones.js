@@ -14,20 +14,22 @@ router.post('/getCotizaciones', function(req, res, next){
     });
 });
 
-router.post('/getCotizacionByEvento', async function(req, res, next){
-    var resultado = []
-    var cotizaciones = await Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento });
-    if(cotizaciones){
+router.post('/getCotizacionByEvento', function(req, res, next){
+    Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }).then(cotizaciones=>{ 
+        var resultado = []
         cotizaciones.forEach(async (e,i)=>{
-            var profile = await ProveedoresInfo.findOne({id_proveedor: e.id_proveedor})
             resultado.push({
                 cotizacion: e,
-                proveedor_info: profile
+                proveedor_info: ProveedoresInfo.findOne({id_proveedor: e.id_proveedor})
             }) 
-            console.log(profile)
+            return Promise.all(resultado)
         })
-        return res.json({valid:true, result:resultado})
-    }
+        
+    }).then(function(result) {
+        return res.json({valid:true, result:result})
+    }).catch(function(error) {
+        return res.json({valid:false})
+    });
 });
 
 
