@@ -18,7 +18,7 @@ router.post('/getCotizacionByEvento', async function(req, res, next){
     var resultado = []
     var cotizaciones = await Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento });
     if(cotizaciones){
-        cotizaciones.forEach((e,i)=>{
+        cotizaciones.forEach(async (e,i)=>{
             var profile = await ProveedoresInfo.findOne({id_proveedor: e.id_proveedor})
             resultado.push({
                 cotizacion: e,
