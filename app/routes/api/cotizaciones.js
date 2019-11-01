@@ -24,8 +24,8 @@ router.post('/getCotizacionByEvento', async function(req, res, next){
                 cotizacion: e,
                 proveedor_info: profile
             }) 
+            console.log(profile)
         })
-        console.log(resultado)
         return res.json({valid:true, result:resultado})
     }
 });
