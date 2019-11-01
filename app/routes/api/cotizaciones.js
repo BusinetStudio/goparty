@@ -15,19 +15,18 @@ router.post('/getCotizaciones', function(req, res, next){
 });
 
 router.post('/getCotizacionByEvento', function(req, res, next){
-    Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }).then(cotizaciones=>{ 
+    Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }).then( async cotizaciones=>{ 
         var resultado = []
-        cotizaciones.forEach((e,i)=>{
+        for (var key in cotizaciones){
+            var proveedor_info = await ProveedoresInfo.findOne({id_proveedor: cotizaciones[key].id_proveedor}).exec();
             resultado.push({
-                cotizacion: e,
-                proveedor_info: ProveedoresInfo.findOne({id_proveedor: e.id_proveedor}).exec()
+                cotizacion: cotizaciones[key],
+                proveedor_info: proveedor_info
             }) 
-        })
-        return Promise.all(resultado)
+        }
+        console.log(resultado)
+        return res.json({valid:true, result:resultado})
         
-    }).then(function(result) {
-        console.log(result)
-        return res.json({valid:true, result:result})
     }).catch(function(error) {
         return res.json({valid:false})
     });
