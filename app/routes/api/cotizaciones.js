@@ -17,7 +17,7 @@ router.post('/getCotizaciones', function(req, res, next){
 router.post('/getCotizacionByEvento', function(req, res, next){
     Cotizaciones.find({ id_usuario: req.body.id_usuario, id_evento: req.body.id_evento }).then(cotizaciones=>{ 
         var resultado = []
-        cotizaciones.forEach(async (e,i)=>{
+        cotizaciones.forEach((e,i)=>{
             resultado.push({
                 cotizacion: e,
                 proveedor_info: ProveedoresInfo.findOne({id_proveedor: e.id_proveedor})
@@ -26,6 +26,7 @@ router.post('/getCotizacionByEvento', function(req, res, next){
         })
         
     }).then(function(result) {
+        console.log(result)
         return res.json({valid:true, result:result})
     }).catch(function(error) {
         return res.json({valid:false})
