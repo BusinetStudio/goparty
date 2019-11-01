@@ -20,7 +20,7 @@ router.post('/getCotizacionByEvento', function(req, res, next){
         cotizaciones.forEach((e,i)=>{
             resultado.push({
                 cotizacion: e,
-                proveedor_info: ProveedoresInfo.findOne({id_proveedor: e.id_proveedor})
+                proveedor_info: ProveedoresInfo.findOne({id_proveedor: e.id_proveedor}).exec()
             }) 
         })
         return Promise.all(resultado)
