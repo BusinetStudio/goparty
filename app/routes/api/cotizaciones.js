@@ -25,8 +25,8 @@ router.post('/getCotizacionByEvento', async function(req, res, next){
                 if(profile) { 
                     console.log(profile)
                     resultado[i] = {
-                        ...cotizaciones,
-                        ...profile
+                        cotizacion: e,
+                        proveedor_info: profile
                     }                    
                 }
             })
