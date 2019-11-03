@@ -7,7 +7,7 @@ var CotizacionesSchema = new mongoose.Schema({
   aceptada: Boolean,
   fecha_de_cotizacion: {type: String, required: [true, "can't be blank"]},
   servicios:[],
-  cotizacion : [],
+  cotizacion : {},
   total: Number
 }, {timestamps: true});
 mongoose.model('Cotizaciones', CotizacionesSchema);

@@ -24,7 +24,6 @@ router.post('/getCotizacionByEvento', function(req, res, next){
                 proveedor_info: proveedor_info
             }) 
         }
-        console.log(resultado)
         return res.json({valid:true, result:resultado})
         
     }).catch(function(error) {
