@@ -66,7 +66,7 @@ router.post('/users/usuarioProfile', function(req, res, next){
       if (err) return res.status(500).send(err);
       else {
         var profile = profile
-        User.findOne({id_usuario: req.body.id_usuario},
+        User.findOne({_id: req.body.id_usuario},
           (err, user) => {
             if (err) return res.status(500).send(err);
             else{
