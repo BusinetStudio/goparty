@@ -60,23 +60,11 @@ router.post('/users/register', async function(req, res, next){
   return res.json({success:true, user: user.toAuthJSON(), profile: dataProfile});
 });
 
-router.post('/users/usuarioProfile', function(req, res, next){
-  UsuariosInfo.findOne({id_usuario: req.body.id_usuario},
-    (err, profile) => {
-      if (err) return res.status(500).send(err);
-      else {
-        User.findOne({_id: req.body.id_usuario},
-          (err, user) => {
-            if (err) return res.status(500).send(err);
-            else{
-              var profile = {...profile, ...user}
-              return res.json({valid:true, result: profile})
-            }
-          }
-        )
-      }
-    }
-  )
+router.post('/users/usuarioProfile', async function(req, res, next){
+  var usuario = await User.findOne({_id: req.body.id_usuario})
+  var profile = await UsuariosInfo.findOne({id_usuario: req.body.id_usuario})
+  var result = {...profile, ...usuario}
+  return res.json({valid:true, result: result})
 });
 router.post('/users/usuarioProfileUpdate', function(req, res, next){
   var query = { 'id_usuario':req.body.id };
