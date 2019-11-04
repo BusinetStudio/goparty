@@ -65,9 +65,12 @@ router.post('/users/usuarioProfile', async function(req, res, next){
     if(usuario){
       UsuariosInfo.findOne({id_usuario: req.body.id_usuario},(err, profile)=>{
         if(profile){
-          var user = usuario;
-          const result = Object.assign(user, profile);
-          return res.json({valid:true, result: user})
+          var result = {
+            username: usuario.username,
+            email: usuario.email
+          }
+          const resultado = Object.assign(result, profile);
+          return res.json({valid:true, result: resultado})
         }
       })
     }
