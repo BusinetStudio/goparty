@@ -69,7 +69,7 @@ router.post('/users/usuarioProfile', function(req, res, next){
           (err, user) => {
             if (err) return res.status(500).send(err);
             else{
-              profile = {...profile, ...user}
+              var profile = {...profile, ...user}
               return res.json({valid:true, result: profile})
             }
           }
