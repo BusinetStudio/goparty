@@ -5,7 +5,7 @@ var User = mongoose.model('Usuarios');
 var auth = require('../auth');
 var UsuariosInfo = mongoose.model('UsuariosInfo');
 var ProveedoresInfo = mongoose.model('ProveedoresInfo');
-
+var crypto = require('crypto');
 router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
