@@ -34,7 +34,7 @@ router.post('/users/update', function(req, res, next){
   User.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
     (err2, todo) => {
       if (err2) return res.status(500).send(err2);
-      else res.json({status: 'actualizado'})
+      else res.json({valid:true, status: 'actualizado'})
       
     }
   )
@@ -89,7 +89,7 @@ router.post('/users/usuarioProfileUpdate', function(req, res, next){
   UsuariosInfo.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
     (err2, todo) => {
       if (err2) return res.status(500).send(err2);
-      else res.json({status: 'Actualizado'})
+      else res.json({valid:true, status: 'Actualizado'})
     }
   )
 });
