@@ -61,12 +61,12 @@ router.post('/users/register', async function(req, res, next){
 });
 
 router.post('/users/usuarioProfile', async function(req, res, next){
-  var resultado;
   User.findOne({_id: req.body.id_usuario}, (err,usuario)=>{
     if(usuario){
       UsuariosInfo.findOne({id_usuario: req.body.id_usuario},(err, profile)=>{
         if(profile){
-          return res.json({valid:true, result: {...profile, ...usuario}})
+          const result = Object.assign(profile, usuario);
+          return res.json({valid:true, result})
         }
       })
     }
