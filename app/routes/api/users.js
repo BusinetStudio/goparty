@@ -61,9 +61,13 @@ router.post('/users/register', async function(req, res, next){
 });
 
 router.post('/users/usuarioProfile', async function(req, res, next){
-  var usuario = await User.findOne({_id: req.body.id_usuario})
-  var profile = await UsuariosInfo.findOne({id_usuario: req.body.id_usuario})
-  return res.json({valid:true, result: {...profile, ...usuario}})
+  var resultado;
+  User.findOne({_id: req.body.id_usuario}).then(usuario=>{
+    resultado = usuario;
+    return UsuariosInfo.findOne({id_usuario: req.body.id_usuario})
+  }).then(profile=>{
+    return res.json({valid:true, result: {...profile, ...resultado}})
+  })
 });
 router.post('/users/usuarioProfileUpdate', function(req, res, next){
   var query = { 'id_usuario':req.body.id };
