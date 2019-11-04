@@ -27,6 +27,18 @@ router.post('/users/login', function(req, res, next){
     return res.json({success : false});
   })(req, res, next);
 });
+router.post('/users/changePass', function(req, res, next){
+  var query = { '_id':req.body.id };
+  var salt = crypto.randomBytes(16).toString('hex');
+  var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
+  User.findOneAndUpdate( query,{salt, hash},{new: true, useFindAndModify: false},
+    (err2, todo) => {
+      if (err2) return res.status(500).send(err2);
+      else res.json({valid:true, status: 'actualizado'})
+      
+    }
+  )
+});
 router.post('/users/update', function(req, res, next){
   var query = { '_id':req.body.id };
   var datos = req.body;
