@@ -60,6 +60,25 @@ router.post('/users/register', async function(req, res, next){
   return res.json({success:true, user: user.toAuthJSON(), profile: dataProfile});
 });
 
+router.post('/users/usuarioProfile', function(req, res, next){
+  UsuariosInfo.findOne({id_usuario: req.body.id_usuario},
+    (err, profile) => {
+      if (err) return res.status(500).send(err);
+      else {
+        var profile = profile
+        User.findOne({id_usuario: req.body.id_usuario},
+          (err, user) => {
+            if (err) return res.status(500).send(err);
+            else{
+              profile = {...profile, user}
+              return res.json({valid:true, result: profile})
+            }
+          }
+        )
+      }
+    }
+  )
+});
 router.post('/users/usuarioProfileUpdate', function(req, res, next){
   var query = { 'id_usuario':req.body.id };
   var datos = req.body;
