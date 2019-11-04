@@ -67,10 +67,16 @@ router.post('/users/usuarioProfile', async function(req, res, next){
         if(profile){
           var result = {
             username: usuario.username,
-            email: usuario.email
+            email: usuario.email,
+            nombreCompleto: profile.nombreCompleto,
+            fechaNacimiento: profile.fechaNacimiento,
+            genero: profile.genero,
+            telefono: profile.telefono,
+            celular: profile.celular,
+            direccion: profile.direccion,
+            distrito: profile.distrito
           }
-          const resultado = Object.assign(result, profile);
-          return res.json({valid:true, result: resultado})
+          return res.json({valid:true, result})
         }
       })
     }

@@ -9,9 +9,7 @@ var UsuariosInfoSchema = new mongoose.Schema({
   telefono: String,
   celular: String,
   direccion: String,
-  distrito: String,
-  popupCheckForm: {type: Boolean, default:true},
-  popupInputMesagge: {type: Boolean, default:true}
+  distrito: String
 }, {timestamps: true});
 
 mongoose.model('UsuariosInfo', UsuariosInfoSchema);
