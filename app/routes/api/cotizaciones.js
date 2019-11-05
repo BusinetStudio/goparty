@@ -79,7 +79,8 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
             var coti = result[key].cotizacion
             resultado[perfil.nombreEmpresa] = coti[categoria]
         }
-        return await Promise.all(res.json({valid:true, result: resultado}))
+        var response = {valid:true, result: resultado}
+        return res.json(await Promise.all(response))
     });
 }); 
 module.exports = router;
