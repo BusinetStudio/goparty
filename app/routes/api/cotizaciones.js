@@ -75,12 +75,10 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
     Cotizaciones.find({id_evento: req.body.id_evento}).then(async result=>{
         var resultado = []
         for (var key in result){
-            await ProveedoresInfo.findOne({id_proveedor: result[key].id_proveedor}).then(perfil=>{
-                var coti = result[key].cotizacion
-                resultado[perfil.nombreEmpresa] = coti[categoria]
-            });
+            var perfil = await ProveedoresInfo.findOne({id_proveedor: result[key].id_proveedor}).exec();
+            var coti = result[key].cotizacion
+            resultado[perfil.nombreEmpresa] = coti[categoria]
         }
-        console.log(resultado)
         return res.json({valid:true, result: resultado});
     });
 }); 
