@@ -80,6 +80,7 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
                 resultado[perfil.nombreEmpresa] = coti[categoria]
             });
         }
+        console.log(resultado)
         return res.json({valid:true, result: resultado});
     });
 }); 
