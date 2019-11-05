@@ -31,8 +31,6 @@ router.post('/getCotizacionByEvento', function(req, res, next){
     });
 });
 
-
-
 router.post('/getCotizacionById', function(req, res, next){
     Cotizaciones.findById(req.body.id, function (err, result) {
         if (err) throw err;
@@ -66,11 +64,27 @@ router.post('/nuevaCotizacion', function(req, res, next){
 }); 
 
 router.post('/borrarCotizacion', function(req, res, next){
-    Cotizacion.deleteOne({_id: req.body.id}, function (err) {
+    Cotizaciones.deleteOne({_id: req.body.id}, function (err) {
         if(err) return res.json({valid:false});
         else return res.json({valid:true});
     });
     return res.json({valid:false})
 }); 
-
+router.post('/CotizacionesOrderByCategoria', function(req, res, next){
+    Cotizaciones.find({id_evento: req.body.id_evento}, async function (err,result) {
+        if(err) return res.json({valid:false});
+        else {
+            var cotizaciones = await result;
+            var resultado=[]
+            cotizaciones.forEach(r=>{
+                var profile = await ProveedoresInfo.findOne({id_proveedor: r.id_proveedor});
+                for(key in r.cotizacion[req.body.categoria]){
+                    resultado[profile.nombreEmpresa]=r.cotizacion[req.body.categoria]
+                }
+                return res.json({valid:true, result: resultado});
+            })
+        }
+    });
+    return res.json({valid:false})
+}); 
 module.exports = router;
