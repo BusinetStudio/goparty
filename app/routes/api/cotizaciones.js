@@ -85,6 +85,5 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
             })
         }
     });
-    return res.json({valid:false})
 }); 
 module.exports = router;
