@@ -71,12 +71,13 @@ router.post('/borrarCotizacion', function(req, res, next){
     return res.json({valid:false})
 }); 
 router.post('/CotizacionesOrderByCategoria', function(req, res, next){
+    var categoria = req.body.categoria;
     Cotizaciones.find({id_evento: req.body.id_evento}).then(async result=>{
         var resultado = []
         for (var key in result){
             await ProveedoresInfo.findOne({id_proveedor: result[key].id_proveedor}).then(perfil=>{
-                console.log(req.body.categoria, result[key])
-                resultado[perfil.nombreEmpresa] = result[key].cotizacion[req.body.categoria]
+                console.log(categoria, result[key])
+                resultado[perfil.nombreEmpresa] = result[key].cotizacion[categoria]
             });
             
         }
