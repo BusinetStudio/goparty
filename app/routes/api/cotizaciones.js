@@ -76,10 +76,9 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
         var resultado = []
         for (var key in result){
             await ProveedoresInfo.findOne({id_proveedor: result[key].id_proveedor}).then(perfil=>{
-                console.log(categoria, result[key])
-                resultado[perfil.nombreEmpresa] = result[key].cotizacion[categoria]
+                var coti = result[key].cotizacion
+                resultado[perfil.nombreEmpresa] = coti[categoria]
             });
-            
         }
         return res.json({valid:true, result: resultado});
     });
