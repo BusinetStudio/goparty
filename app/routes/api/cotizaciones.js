@@ -77,10 +77,12 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
         for (var key in result){
             var perfil = await ProveedoresInfo.findOne({id_proveedor: result[key].id_proveedor}).exec();
             var coti = result[key].cotizacion
-            resultado[perfil.nombreEmpresa] = coti[categoria]
+            resultado.push({
+                empresa: perfil.nombreEmpresa,
+                contenido: coti[categoria]
+            })
         }
-        var response = {valid:true, result: resultado}
-        return res.json(await Promise.all(response))
+        return res.json({valid:true, result: resultado})
     });
 }); 
 module.exports = router;
