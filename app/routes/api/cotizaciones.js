@@ -77,9 +77,12 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
             var cotizaciones = result;
             var resultado=[]
             cotizaciones.forEach(async r=>{
+                
                 var profile = await ProveedoresInfo.findOne({id_proveedor: r.id_proveedor});
+                console.log(r,profile)
                 resultado[profile.nombreEmpresa]=r.cotizacion[req.body.categoria];
             })
+            console.log('enviado')
             return res.json({valid:true, result: resultado});
         }
     });
