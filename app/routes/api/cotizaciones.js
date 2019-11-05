@@ -75,11 +75,9 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
         if(err) return res.json({valid:false});
         else {
             var cotizaciones = result;
-            var resultado=[]
-            await cotizaciones.forEach(async r=>{
+            var resultado = await cotizaciones.map(async r=>{
                 var profile = await ProveedoresInfo.findOne({id_proveedor: r.id_proveedor});
-                console.log(r,profile)
-                resultado[profile.nombreEmpresa]=r.cotizacion[req.body.categoria];
+                return {[profile.nombreEmpresa]: r.cotizacion[req.body.categoria]}
             })
             console.log('enviado')
             return res.json({valid:true, result: resultado});
