@@ -80,8 +80,10 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
                 console.log(profile)
                 return {[profile.nombreEmpresa]: r.cotizacion[req.body.categoria]}
             })
-            console.log('enviado')
-            return res.json({valid:true, result: resultado});
+            resultado.then(r=>{
+                return res.json({valid:true, result: resultado});
+            })
+            
         }
     });
 }); 
