@@ -74,14 +74,15 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
     Cotizaciones.find({id_evento: req.body.id_evento}, async function (err,result) {
         if(err) return res.json({valid:false});
         else {
-            var cotizaciones = result;
-            var resultado = await cotizaciones.map(async r=>{
-                var profile = await ProveedoresInfo.findOne({id_proveedor: r.id_proveedor});
-                console.log(profile)
-                return {[profile.nombreEmpresa]: r.cotizacion[req.body.categoria]}
-            })
-            resultado.then(r=>{
-                return res.json({valid:true, result: resultado});
+            async function asyncResult(result) {
+                var resultado = await cotizaciones.map(async r=>{
+                    var profile = await ProveedoresInfo.findOne({id_proveedor: r.id_proveedor});
+                    return {[profile.nombreEmpresa]: r.cotizacion[req.body.categoria]}
+                })
+                return Promise.all(resultado);
+            }
+            asyncResult.then(r=>{
+                return res.json({valid:true, result: r});
             })
             
         }
