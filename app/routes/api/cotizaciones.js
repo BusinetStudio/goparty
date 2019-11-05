@@ -81,7 +81,7 @@ router.post('/CotizacionesOrderByCategoria', function(req, res, next){
                 })
                 return Promise.all(resultado);
             }
-            asyncResult.then(r=>{
+            asyncResult(result).then(r=>{
                 return res.json({valid:true, result: r});
             })
             
