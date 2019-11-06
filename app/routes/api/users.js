@@ -16,7 +16,6 @@ router.post('/users/login', function(req, res, next){
     } 
     user.token = user.generateJWT();
     var datosUsuario=user.toAuthJSON();
-    console.log(datosUsuario)
     if(datosUsuario.privilege === 'Usuario'){
       var profile = await UsuariosInfo.findOne({id_usuario: datosUsuario.id});
       return res.json({success : true, user: datosUsuario, profile: profile});

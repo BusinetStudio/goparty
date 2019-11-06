@@ -15,7 +15,6 @@ router.post('/getFiestas', function(req, res, next){
 router.post('/getFiestasProveedor', function(req, res, next){
     Eventos.find({ servicios_solicitados : { "$in" : req.body.servicios_solicitados} }, function (err, result) {
         if (err) throw err;
-        console.log(err)
         if (result) { return res.json({valid:true, result: result}) } 
         else {
             return res.json({valid:false})

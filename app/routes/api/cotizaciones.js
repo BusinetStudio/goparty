@@ -2,13 +2,21 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 var Cotizaciones = mongoose.model('Cotizaciones');
 var ProveedoresInfo = mongoose.model('ProveedoresInfo');
-
+var Eventos = mongoose.model('Eventos');
 
 router.post('/getCotizaciones', function(req, res, next){
-    Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, result) {
+    Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, cotizacion) {
         if (err) throw err;
-        if (result) { return res.json({valid:true, result: result}) } 
-        else {
+        if(cotizacion){
+            Eventos.findById(cotizacion.id_evento, function(err, evento){
+                if (err) throw err;
+                if(evento){
+                    return res.json({valid:true, cotizacion, evento})
+                }else{
+                    return res.json({valid:false})
+                }
+            })
+        }else{
             return res.json({valid:false})
         }
     });
