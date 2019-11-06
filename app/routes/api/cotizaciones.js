@@ -5,20 +5,18 @@ var ProveedoresInfo = mongoose.model('ProveedoresInfo');
 var Eventos = mongoose.model('Eventos');
 
 router.post('/getCotizaciones', function(req, res, next){
-    Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }, function (err, cotizacion) {
-        if (err) throw err;
-        if(cotizacion){
-            Eventos.findById(cotizacion.id_evento, function(err, evento){
-                if (err) throw err;
-                if(evento){
-                    return res.json({valid:true, cotizacion, evento})
-                }else{
-                    return res.json({valid:false})
-                }
-            })
-        }else{
-            return res.json({valid:false})
+    Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }).then(async cotizaciones=>{
+        var resultado = []
+        for(var key in cotizaciones){
+            var evento = await Eventos.findById(cotizaciones[key].id_evento).exec();
+            resultado.push({
+                cotizacion: cotizaciones[key],
+                evento: evento
+            }) 
         }
+        return res.json({valid:true, result:resultado})
+    }).catch(function(error) {
+        return res.json({valid:false})
     });
 });
 
