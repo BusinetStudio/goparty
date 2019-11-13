@@ -62,13 +62,14 @@ router.post('/aceptarCotizacion', function(req, res, next){
 });
 
 router.post('/nuevaCotizacion', function(req, res){
-    var Cotizacion = new Cotizaciones();
+    var cotizacion = new Cotizaciones();
     for(key in req.body){
-        Cotizacion[key] = req.body[key];
+        cotizacion[key] = req.body[key];
       }
-    Cotizacion.save().then(function(){
+    cotizacion.save().then(function(){
         return res.json({valid: true});
     }).catch(err=>{
+        console.log(err)
         return res.json({valid: false});
     });
 }); 
