@@ -61,14 +61,16 @@ router.post('/aceptarCotizacion', function(req, res, next){
     )
 });
 
-router.post('/nuevaCotizacion', function(req, res, next){
+router.post('/nuevaCotizacion', function(req, res){
     var Cotizacion = new Cotizaciones();
     for(key in req.body){
         Cotizacion[key] = req.body[key];
       }
     Cotizacion.save().then(function(){
         return res.json({valid: true});
-    }).catch(next);
+    }).catch(err=>{
+        return res.json({valid: false});
+    });
 }); 
 
 router.post('/borrarCotizacion', function(req, res, next){

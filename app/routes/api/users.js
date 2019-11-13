@@ -51,14 +51,18 @@ router.post('/users/update', function(req, res, next){
   )
 
 });
-router.post('/users/register', async function(req, res, next){
+router.post('/users/register', async function(req, res){
+  const { username, email , password , nombreCompleto , direccion , distrito, telefono} = req.body;
+  if(!username && !email && !password && !nombreCompleto && !distrito && !direccion && !telefono) {
+    return res.json({valid:false,error:'Debe rellenar todos los campos'})
+  }
   var user = new User();
   user.username = req.body.username;
   user.email = req.body.email;
   user.privilege = 'Usuario';
   user.setPassword(req.body.password);
   var dataUser = await user.save();
-
+  console.log(dataUser)
   var profile = new UsuariosInfo();
   profile.id_usuario = dataUser._id;
   profile.nombreCompleto = req.body.nombreCompleto;
@@ -66,8 +70,6 @@ router.post('/users/register', async function(req, res, next){
   profile.distrito = req.body.distrito;
   profile.telefono = req.body.telefono;
   var dataProfile = await profile.save();
-
-  console.log(dataProfile)
   return res.json({success:true, user: user.toAuthJSON(), profile: dataProfile});
 });
 
