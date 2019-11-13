@@ -66,6 +66,7 @@ router.post('/nuevaCotizacion', function(req, res){
     for(key in req.body){
         cotizacion[key] = req.body[key];
       }
+      console.log(cotizacion)
     cotizacion.save().then(function(){
         return res.json({valid: true});
     }).catch(err=>{
