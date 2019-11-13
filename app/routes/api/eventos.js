@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var Eventos = mongoose.model('Eventos');
+var Cotizaciones = mongoose.model('Cotizaciones');
 
 router.post('/getFiestas', function(req, res, next){
     Eventos.find({ id_usuario: req.body.id_usuario }, function (err, result) {
@@ -13,13 +14,23 @@ router.post('/getFiestas', function(req, res, next){
 });
 
 router.post('/getFiestasProveedor', function(req, res, next){
-    Eventos.find({ servicios_solicitados : { "$in" : req.body.servicios_solicitados} }, function (err, result) {
-        if (err) throw err;
-        if (result) { return res.json({valid:true, result: result}) } 
-        else {
-            return res.json({valid:false})
+    Cotizaciones.find({id_proveedor},function(err,cotizaciones){
+        var cotizados = []
+        if (err) return res.json({valid:false})
+        if(cotizaciones){
+            cotizaciones.forEach(e=>{
+                cotizados.push(e.id_evento)
+            })
         }
-    });
+        Eventos.find({ servicios_solicitados : { "$in" : req.body.servicios_solicitados}, id_usuario: {"$nin":cotizados} }, function (err, result) {
+            if (err) throw err;
+            if (result) { return res.json({valid:true, result: result}) } 
+            else {
+                return res.json({valid:false})
+            }
+        });
+    })
+    
 });
 
 
