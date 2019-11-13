@@ -14,7 +14,7 @@ router.post('/getFiestas', function(req, res, next){
 });
 
 router.post('/getFiestasProveedor', function(req, res, next){
-    Cotizaciones.find({id_proveedor},function(err,cotizaciones){
+    Cotizaciones.find({id_proveedor: req.body.proveedor},function(err,cotizaciones){
         var cotizados = []
         if (err) return res.json({valid:false})
         if(cotizaciones){
