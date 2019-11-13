@@ -22,6 +22,7 @@ router.post('/getFiestasProveedor', function(req, res, next){
                 cotizados.push(e.id_evento)
             })
         }
+        console.log(cotizados)
         Eventos.find({ servicios_solicitados : { "$in" : req.body.servicios_solicitados}, id_usuario: {"$nin":cotizados} }, function (err, result) {
             if (err) throw err;
             if (result) { return res.json({valid:true, result: result}) } 
