@@ -11,6 +11,7 @@ router.post('/getCotizaciones', function(req, res, next){
         for(var key in cotizaciones){
             var evento = await Eventos.findById(cotizaciones[key].id_evento).exec();
             var usuario = await UsuariosInfo.findOne({id_usuario: cotizaciones[key].id_usuario}).exec();
+            console.log(usuario)
             resultado.push({
                 cotizacion: cotizaciones[key],
                 evento: evento,
