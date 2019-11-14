@@ -2,18 +2,19 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 var Cotizaciones = mongoose.model('Cotizaciones');
 var ProveedoresInfo = mongoose.model('ProveedoresInfo');
+var UsuariosInfo = mongoose.model('UsuariosInfo');
 var Eventos = mongoose.model('Eventos');
 
 router.post('/getCotizaciones', function(req, res, next){
     Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }).then(async cotizaciones=>{
-        console.log(cotizaciones)
         var resultado = []
         for(var key in cotizaciones){
             var evento = await Eventos.findById(cotizaciones[key].id_evento).exec();
-            console.log(evento)
+            var usuario = await UsuariosInfo.findOne({id_usuario: cotizaciones[key].id_usuario}).exec();
             resultado.push({
                 cotizacion: cotizaciones[key],
-                evento: evento
+                evento: evento,
+                usuario: usuario
             }) 
         }
         return res.json({valid:true, result:resultado})
