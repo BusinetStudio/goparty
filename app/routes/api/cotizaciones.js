@@ -52,7 +52,7 @@ router.post('/getCotizacionById', function(req, res, next){
 
 router.post('/aceptarCotizacion', function(req, res, next){
     var query = { '_id':req.body.id };
-    var datos = {aceptado: true};
+    var datos = {aceptada: true};
     delete datos.id;
     Cotizaciones.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
         (err2, todo) => {
