@@ -112,11 +112,13 @@ router.post('/users/proveedorProfileUpdate', function(req, res, next){
   delete datos.id_proveedor
   User.findOneAndUpdate( query,datos,{new: true, useFindAndModify: false},
     (err2, todo) => {
-      if (err2) return res.status(500).send(err2);
-      else res.json({status: 'Actualizado'})
+      if (err2) return res.json({valid:false})
+      else res.json({valid:true, status: 'Actualizado'})
       
     }
-  )
+  ).catch(e=>{
+    return res.json({valid:false})
+  })
 
 });
 
@@ -124,7 +126,7 @@ router.post('/users/proveedorProfile', function(req, res, next){
   ProveedoresInfo.findOne({id_proveedor: req.body.id_proveedor},
     (err, resp) => {
       if (err) return res.status(500).send(err);
-      else res.json({success: true, data: resp})
+      else res.json({success: true, result: resp})
     }
   )
 });
