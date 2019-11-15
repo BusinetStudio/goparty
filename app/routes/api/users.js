@@ -126,7 +126,7 @@ router.post('/users/proveedorProfile', function(req, res, next){
   ProveedoresInfo.findOne({id_proveedor: req.body.id_proveedor},
     (err, resp) => {
       if (err) return res.status(500).send(err);
-      else res.json({success: true, result: resp})
+      else res.json({valid: true, result: resp})
     }
   )
 });
