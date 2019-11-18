@@ -54,13 +54,17 @@ router.post('/editar/', function(req, res, next) {
       var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
       data["hash"] = hash;
     }
-    var updateUser = await User.findByIdAndUpdate(id, data).exec();
-    console.log(updateUser)
-    if(!updateUser){return res.json({valid: false, msg: 'Error'})}
-    var profileId = updateUser._id;
+    try{
+      var updateUser = await User.findByIdAndUpdate(id, data).exec();
+      var profileId = updateUser._id;
+    } catch(e) {
+      console.log(e)
+      return res.json({valid: false, msg: e.message})
+    }
     var ProveedorInfo = await ProveedoresInfo.findByIdAndUpdate(profileId, profile).exec();
     if(!ProveedorInfo){return res.json({valid: false, msg: 'Error'})}
     return res.json({valid: true})
+    
   })
 });
 router.get('/nuevo', function(req, res) {
