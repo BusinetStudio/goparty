@@ -38,38 +38,30 @@ router.get('/editar/:id', async function(req, res, next){
     });
   }
 });
-router.post('/editar/', function(req, res, next) {
+router.post('/editar/', async function(req, res, next) {
   User.findById(req.body._id, function(err, result) {
-    var query = { '_id':req.body._id };
+    var id = { '_id':req.body._id };
     var data= new Object;
     var profile = new Object;
     for(key in req.body){
       if(key!='_id'){
         if(key === 'username' || key === 'email' || key=== 'password') data[key] = req.body[key];
-        else profile[key] = req.body[key];
       }
     }
+    for(key in req.body.profile){profile[key] = req.body.profile[key];}
     if(req.body.password){
       var salt = result.salt;
       var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
-      datos["hash"] = hash;
+      data["hash"] = hash;
     }
-    User.findByIdAndUpdate( query,data,{new: true}, (err2, todo) => {
-        if (err2) return res.status(500).send(err2);
-        if(req.body.privilege === 'Usuario'){
-          UsuariosInfo.findOneAndUpdate( {'id_usuario': req.body._id},profile,{new: true},(err3, todo) => {
-            if(err3) console.log(err)
-            console.log(todo)
-            return res.redirect('/usuarios/todos/');
-          })
-        }else if(req.body.privilege === 'Proveedor'){
-          ProveedoresInfo.findOneAndUpdate( {'id_proveedor': req.body._id},profile,{new: true},(err3, todo) => {
-            if(err3) console.log(err)
-            return res.redirect('/usuarios/todos/');
-          })
-        }
-      }
-    )
+    var find = await User.findOne({$or: [{username: data.username}, {email: data.email}]})
+    if(find){return res.json({valid:false, msg: 'Usuario o correo en uso.'})}
+    var updateUser = await User.findByIdAndUpdate(id, data);
+    if(!updateUser){return res.json({valid: false, msg: 'Error'})}
+    var profileId = updateUser._id;
+    var ProveedorInfo = await ProveedoresInfo.findByIdAndUpdate(profileId, profile);
+    if(!ProveedorInfo){return res.json({valid: false, msg: 'Error'})}
+    return res.json({valid: true})
   })
 });
 router.get('/nuevo', function(req, res) {

@@ -182,7 +182,7 @@
                                             <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Empresa</label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="empresa" value="<%= profile.empresa %>" class="form-control" />
+                                                <input type="text" name="nombreEmpresa" value="<%= profile.empresa %>" class="form-control" />
                                             </div>
                                             </div>
                                         </div>
@@ -468,7 +468,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="_id" value="<%= user._id %>">
+                                    <input type="hidden" id="_id" name="_id" value="<%= user._id %>">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -522,6 +522,78 @@
                 currentValue.checked = true;
             }
         });
+
+         // FORM SUBMIT
+         var form = document.getElementById('form');
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            formValidate()
+        });
+        function formValidate(){
+            var data = {
+                '_id' : document.getElementsByName('_id')[0].value,
+                'privilege' : document.getElementsByName('privilege')[0].value,
+                'username' : document.getElementsByName('username')[0].value,
+                'email' : document.getElementsByName('email')[0].value,
+                'password' : document.getElementsByName('password')[0].value,
+                'rePassword' : document.getElementsByName('rePassword')[0].value,
+                'profile': {}
+            }
+            if(data.password != data.rePassword) return alert('Contraseñas no coinciden');
+            if(data.privilege === 'Usuario'){
+                var nombreCompleto = document.getElementsByName('nombreCompleto')[0].value;
+                if(nombreCompleto) data.profile.nombreCompleto = nombreCompleto
+                var genero = document.getElementsByName('genero')[0].value;
+                if(genero) data.profile.genero = genero
+                var fechaNacimiento = document.getElementsByName('fechaNacimiento')[0].value;
+                if(fechaNacimiento) data.profile.fechaNacimiento = fechaNacimiento
+                var telefono = document.getElementsByName('telefono')[0].value;
+                if(telefono) data.profile.telefono = telefono
+                var celular = document.getElementsByName('celular')[0].value;
+                if(celular) data.profile.celular = celular
+                var direccion = document.getElementsByName('direccion')[0].value;
+                if(direccion) data.profile.direccion = direccion
+                var distrito = document.getElementsByName('distrito')[0].value;
+                if(distrito) data.profile.distrito = distrito  
+            } else if(data.privilege === 'Proveedor'){
+                var nombreEmpresa = document.getElementsByName('nombreEmpresa')[0].value;
+                if(nombreEmpresa) data.profile.nombreEmpresa = nombreEmpresa
+                var ruc = document.getElementsByName('ruc')[0].value;
+                if(ruc) data.profile.ruc = ruc
+                var telefonoEmpresa = document.getElementsByName('telefonoEmpresa')[0].value;
+                if(telefonoEmpresa) data.profile.telefonoEmpresa = telefonoEmpresa
+                var direccionEmpresa = document.getElementsByName('direccionEmpresa')[0].value;
+                if(direccionEmpresa) data.profile.direccionEmpresa = direccionEmpresa
+                var distritoEmpresa = document.getElementsByName('distritoEmpresa')[0].value;
+                if(distritoEmpresa) data.profile.distritoEmpresa = distritoEmpresa
+                var tipoFiestasCheckboxes = document.getElementsByName('tipoFiestas');
+                var serviciosCheckboxes = document.getElementsByName('servicios');
+                var tipoFiestas = [];
+                var servicios = [];
+                for (var i = 0; i < tipoFiestasCheckboxes.length; i++) {
+                    var checkbox = tipoFiestasCheckboxes[i];
+                    if (checkbox.checked) tipoFiestas.push(checkbox.value);
+                }
+                if(tipoFiestas.length > 0) data.profile.tipoFiestas = tipoFiestas
+                for (var i = 0; i < serviciosCheckboxes.length; i++) {
+                    var checkbox = serviciosCheckboxes[i];
+                    if (checkbox.checked) servicios.push(checkbox.value);
+                }
+                if(servicios.length > 0) data.profile.servicios = servicios
+            }
+           
+            axios({
+                method: 'post',
+                url: '/usuarios/editar',
+                data: data
+            }).then(r=>{
+                if(r.data.valid){
+                    window.location.replace("/usuarios/todos");
+                }else{
+                    alert(r.data.msg)
+                }
+            });
+        }
     </script>
     <!-- page-body-wrapper ends -->
 <%- include('../footer'); -%>
