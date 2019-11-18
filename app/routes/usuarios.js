@@ -88,6 +88,7 @@ router.post('/nuevo', function(req, res, next){
     user.password = data.password
     user.setPassword(data.password);
     user.save(function(err, response){
+      if(err) {console.log(err); return res.json({valid:false});}
       if(data.privilege === 'Usuario'){
         var profile = new UsuariosInfo();
         if(data.profile){
