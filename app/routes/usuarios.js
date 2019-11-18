@@ -58,7 +58,7 @@ router.post('/editar/', function(req, res, next) {
       var updateUser = await User.findByIdAndUpdate(id, data).exec();
       var profileId = updateUser._id;
     } catch(e) {
-      console.log(e)
+      console.log('error',e)
       return res.json({valid: false, msg: e.message})
     }
     var ProveedorInfo = await ProveedoresInfo.findByIdAndUpdate(profileId, profile).exec();
