@@ -164,7 +164,7 @@
                                             <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Empresa</label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="empresa" class="form-control" />
+                                                <input type="text" name="nombreEmpresa" class="form-control" />
                                             </div>
                                             </div>
                                         </div>
@@ -513,8 +513,8 @@
                 var distrito = document.getElementsByName('distrito')[0].value;
                 if(distrito) data.profile.distrito = distrito  
             }else if(data.privilege === 'Proveedor'){
-                var empresa = document.getElementsByName('empresa')[0].value;
-                if(empresa) data.profile.empresa = empresa
+                var nombreEmpresa = document.getElementsByName('nombreEmpresa')[0].value;
+                if(nombreEmpresa) data.profile.nombreEmpresa = nombreEmpresa
                 var ruc = document.getElementsByName('ruc')[0].value;
                 if(ruc) data.profile.ruc = ruc
                 var telefonoEmpresa = document.getElementsByName('telefonoEmpresa')[0].value;
