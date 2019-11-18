@@ -78,10 +78,12 @@ router.get('/nuevo', function(req, res) {
     distritos: distritos,
   }); // load the index.ejs file
 });
-router.post('/nuevo', function(req, res, next){
+router.post('/nuevo', async function(req, res, next){
   var user = new User();
   var data = req.body
   if(data.username && data.email && data.privilege && data.password){
+    var find = await User.findOne({username: data.username, email: data.email})
+    if(find){return res.json({valid:false, msg: 'Usuario o correo en uso.'})}
     user.username = data.username
     user.email = data.email
     user.privilege = data.privilege
@@ -115,7 +117,9 @@ router.post('/nuevo', function(req, res, next){
         })
       }
     });
-  }  
+  }else{
+    return res.json({valid:false, msg: 'Campos vacios'})
+  }
 });
 
 router.get('/borrar/:id', function(req, res, next){
