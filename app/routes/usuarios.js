@@ -85,7 +85,7 @@ router.post('/nuevo', async function(req, res, next){
     var find = await User.findOne({$or: [{username: data.username}, {email: data.email}]})
     if(find){return res.json({valid:false, msg: 'Usuario o correo en uso.'})}
     user.username = data.username
-    user.email = data.email
+    user.email = data.email 
     user.privilege = data.privilege
     user.password = data.password
     user.setPassword(data.password);
