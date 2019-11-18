@@ -38,8 +38,8 @@ router.get('/editar/:id', async function(req, res, next){
     });
   }
 });
-router.post('/editar/', async function(req, res, next) {
-  User.findById(req.body._id, function(err, result) {
+router.post('/editar/', function(req, res, next) {
+  User.findById(req.body._id, async function(err, result) {
     var id = { '_id':req.body._id };
     var data= new Object;
     var profile = new Object;
