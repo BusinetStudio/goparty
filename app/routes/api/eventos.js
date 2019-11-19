@@ -26,7 +26,7 @@ router.post('/getFiestasProveedor', function(req, res, next){
         Eventos.find({ 
             servicios_solicitados : { "$in" : req.body.servicios_solicitados}, 
             _id: {"$nin":cotizados},
-            expira: {"$lt": moment().valueOf()},
+            expira: {"$gt": moment().valueOf()},
         }, function (err, result) {
             if (err) throw err;
             if (result) { return res.json({valid:true, result: result}) } 
