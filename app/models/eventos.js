@@ -5,6 +5,7 @@ var EventosSchema = new mongoose.Schema({
   nombre: {type: String, required: [true, "can't be blank"]},
   fecha_del_evento: {type: String, required: [true, "can't be blank"]},
   hora_del_evento:{type: String, required: [true, "can't be blank"]},
+  expira:{type: Number, required: [true, "can't be blank"]},
   direccion: String,
   distrito: String,
   multiple_local: [],

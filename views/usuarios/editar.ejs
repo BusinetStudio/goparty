@@ -10,7 +10,7 @@
                 <h2 class="mb-4">Editar Usuario</h2>
                 <div class="row justify-content-center">
                     <div class="col-12 grid-margin">
-                        <form class="form-sample" action="/usuarios/editar" method="POST">
+                        <form class="form-sample" id="form" action="/usuarios/editar" method="POST">
                             <div class="card mb-5">
                                 <div class="card-body">
                                 <h4 class="card-title text-uppercase">Editar datos de la cuenta</h4>
@@ -96,11 +96,13 @@
                                                         <% if(profile.genero == 'Masculino'){ %>
                                                             <option value="Masculino" selected>Masculino</option>
                                                             <option value="Femenino">Femenino</option>
-                                                        <% } %>
-                                                        <% if(profile.genero == 'Femenino'){ %>
+                                                        <% }else if(profile.genero == 'Femenino'){ %>
                                                             <option value="Masculino">Masculino</option>
                                                             <option value="Femenino" selected>Femenino</option>
-                                                        <% } %>
+                                                        <% }else{%>
+                                                            <option value="Masculino">Masculino</option>
+                                                            <option value="Femenino">Femenino</option>
+                                                        <% }%>
                                                     </select>
                                                 </div>
                                             </div>
@@ -109,7 +111,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="fecha_nacimiento"  value="<%= profile.fechaNacimiento %>" placeholder="dd/mm/yyyy" />
+                                                    <input class="form-control" name="fechaNacimiento"  value="<%= profile.fechaNacimiento %>" placeholder="dd/mm/yyyy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -524,7 +526,7 @@
         });
 
          // FORM SUBMIT
-         var form = document.getElementById('form');
+        var form = document.getElementById('form');
         form.addEventListener("submit", function(e) {
             e.preventDefault();
             formValidate()
@@ -535,11 +537,10 @@
                 'privilege' : document.getElementsByName('privilege')[0].value,
                 'username' : document.getElementsByName('username')[0].value,
                 'email' : document.getElementsByName('email')[0].value,
-                'password' : document.getElementsByName('password')[0].value,
-                'rePassword' : document.getElementsByName('rePassword')[0].value,
                 'profile': {}
             }
-            if(data.password != data.rePassword) return alert('Contraseñas no coinciden');
+            if(data.password != data.rePassword) {return alert('Contraseñas no coinciden')}
+            else{data.password = document.getElementsByName('password')[0].value}
             if(data.privilege === 'Usuario'){
                 var nombreCompleto = document.getElementsByName('nombreCompleto')[0].value;
                 if(nombreCompleto) data.profile.nombreCompleto = nombreCompleto
@@ -590,7 +591,11 @@
                 if(r.data.valid){
                     window.location.replace("/usuarios/todos");
                 }else{
-                    alert(r.data.msg)
+                    if(Object.keys(r.data.error).length>0){
+                        for(key in r.data.error) alert(key+' '+r.data.error[key].message)
+                    }else{
+                        alert(r.data.error);
+                    }
                 }
             });
         }

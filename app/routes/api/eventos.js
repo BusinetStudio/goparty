@@ -23,7 +23,11 @@ router.post('/getFiestasProveedor', function(req, res, next){
             })
         }
         console.log(cotizados)
-        Eventos.find({ servicios_solicitados : { "$in" : req.body.servicios_solicitados}, _id: {"$nin":cotizados} }, function (err, result) {
+        Eventos.find({ 
+            servicios_solicitados : { "$in" : req.body.servicios_solicitados}, 
+            _id: {"$nin":cotizados},
+            expira: {$lt: moment().valueOf()},
+        }, function (err, result) {
             if (err) throw err;
             if (result) { return res.json({valid:true, result: result}) } 
             else {
@@ -55,6 +59,7 @@ router.post('/nuevaFiesta', function(req, res, next){
     for(key in req.body){
         Evento[key] = req.body[key];
       }
+      Evento.expira = moment().add(3, 'days').valueOf();
     Evento.save().then(function(){
         return res.json({valid: true});
     }).catch(next);

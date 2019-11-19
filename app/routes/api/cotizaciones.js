@@ -4,6 +4,7 @@ var Cotizaciones = mongoose.model('Cotizaciones');
 var ProveedoresInfo = mongoose.model('ProveedoresInfo');
 var UsuariosInfo = mongoose.model('UsuariosInfo');
 var Eventos = mongoose.model('Eventos');
+var moment = require('moment')
 
 router.post('/getCotizaciones', function(req, res, next){
     Cotizaciones.find({ id_proveedor: req.body.id_proveedor, aceptada: true }).then(async cotizaciones=>{

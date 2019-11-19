@@ -38,34 +38,51 @@ router.get('/editar/:id', async function(req, res, next){
     });
   }
 });
-router.post('/editar/', function(req, res, next) {
-  User.findById(req.body._id, async function(err, result) {
-    var id = { '_id':req.body._id };
-    var data= new Object;
-    var profile = new Object;
-    for(key in req.body){
-      if(key!='_id'){
-        if(key === 'username' || key === 'email' || key=== 'password') data[key] = req.body[key];
-      }
+router.post('/editar/', async function(req, res, next) {
+  var userFind = await User.findById(req.body._id).exec();
+  if(!userFind) return res.json('Error en id.')
+  var profileId = userFind._id;
+  for(key in req.body){
+    if(key!='_id'){
+      if(key === 'username' || key === 'email' || key=== 'password') userFind[key] = req.body[key];
     }
-    for(key in req.body.profile){profile[key] = req.body.profile[key];}
-    if(req.body.password){
-      var salt = result.salt;
-      var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
-      data["hash"] = hash;
+  }
+  if(req.body.password){
+    var salt = userFind.salt;
+    var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('hex');
+    userFind.hash = hash;
+  }
+  try{
+    await userFind.save()
+  }catch(e){
+    return res.json({error: e.errors})
+  }
+  
+  if(userFind.privilege === 'Proveedor') {
+    var proveedorInfo = await ProveedoresInfo.findOne({id_proveedor:profileId}).exec();
+    if(!proveedorInfo){return res.json({valid: false, msg: 'Error'})}
+    for(key in req.body.profile){
+      proveedorInfo[key] = req.body.profile[key];
     }
     try{
-      var updateUser = await User.findByIdAndUpdate(id, data).exec();
-      var profileId = updateUser._id;
-    } catch(e) {
-      console.log('error',e)
-      return res.json({valid: false, msg: e.message})
+      await proveedorInfo.save()
+    }catch(e){
+      return res.json({error: e.errors})
     }
-    var ProveedorInfo = await ProveedoresInfo.findByIdAndUpdate(profileId, profile).exec();
-    if(!ProveedorInfo){return res.json({valid: false, msg: 'Error'})}
-    return res.json({valid: true})
-    
-  })
+  }else if(userFind.privilege === 'Usuario'){
+    var usuariosInfo = await UsuariosInfo.findOne({id_usuario:profileId}).exec();
+    if(!usuariosInfo){return res.json({valid: false, msg: 'Error'})}
+    for(key in req.body.profile){
+      usuariosInfo[key] = req.body.profile[key];
+    }
+    try{
+      await usuariosInfo.save()
+    }catch(e){
+      return res.json({error: e.errors})
+    }
+  }
+  console.log('salio')
+  return res.json({valid: true}) 
 });
 router.get('/nuevo', function(req, res) {
 	res.render('usuarios/nuevo.ejs',{
