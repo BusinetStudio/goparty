@@ -13,6 +13,7 @@ var EventosSchema = new mongoose.Schema({
   ninos: {type: Number, required: [true, "can't be blank"]},
   categoria:{type: String, required: [true, "can't be blank"]},
   servicios_solicitados: [],
-  servicios: {}
+  servicios: {},
+  proveedorPuntuado: {type: Boolean, default: false}
 }, {timestamps: true});
 mongoose.model('Eventos', EventosSchema);

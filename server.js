@@ -28,7 +28,7 @@ app.use(cors())
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
-	extended: true
+	extended: false
 }));
 app.use(bodyParser.json());
 app.use(session({ 

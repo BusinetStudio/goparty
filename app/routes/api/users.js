@@ -6,6 +6,19 @@ var auth = require('../auth');
 var UsuariosInfo = mongoose.model('UsuariosInfo');
 var ProveedoresInfo = mongoose.model('ProveedoresInfo');
 var crypto = require('crypto');
+var multer = require('multer');
+
+const Storage = multer.diskStorage({
+  destination(req, file, callback) {
+    callback(null, './public/uploads')
+  },
+  filename(req, file, callback) {
+    callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`)
+  },
+})
+const upload = multer({ storage: Storage })
+
+
 router.post('/users/login', function(req, res, next){
   passport.authenticate('app', {
     session: false,
@@ -50,6 +63,34 @@ router.post('/users/update', function(req, res, next){
     }
   )
 
+});
+router.post('/users/registerSocial', async function(req, res){
+  console.log(req.body)
+  const { username, email , password , nombreCompleto} = req.body;
+  
+  
+  if(!username && !email && !password && !nombreCompleto) {
+    return res.json({valid:false,error:'Debe rellenar todos los campos'})
+  }
+  
+  var usuarioFind = await User.findOne({$or:[{username: username}, {email:email}]});
+  if (usuarioFind){
+    var validPass = usuarioFind.validPassword(password);
+    if(!validPass) res.json({success:false, error:'Cuenta ya registrada ingresar con usuario y contraseña.'});
+    var profileFind = await UsuariosInfo.findById(usuarioFind._id);
+    return res.json({success:true, user: usuarioFind.toAuthJSON(), profile: profileFind});
+  }
+  var user = new User();
+  user.username = req.body.username;
+  user.email = req.body.email;
+  user.privilege = 'Usuario';
+  user.setPassword(req.body.password);
+  var dataUser = await user.save();
+  var profile = new UsuariosInfo();
+  profile.id_usuario = dataUser._id;
+  profile.nombreCompleto = req.body.nombreCompleto;
+  var dataProfile = await profile.save();
+  return res.json({success:true, user: user.toAuthJSON(), profile: dataProfile});
 });
 router.post('/users/register', async function(req, res){
   const { username, email , password , nombreCompleto , direccion , distrito, telefono} = req.body;
@@ -130,19 +171,14 @@ router.post('/users/proveedorProfile', function(req, res, next){
     }
   )
 });
-
-router.post('/users/proveedorPuntuar', async function(req, res, next){
-  var info = await ProveedoresInfo.findOne({id_proveedor: req.body.id_proveedor});
-  var puntaje = ( (info.puntaje * info.numPuntuados) + req.body.puntaje ) / (info.numPuntuados + 1);
-  var numPuntuados = numPuntuados + 1;
-  ProveedoresInfo.findOneAndUpdate(
-    {id_proveedor: req.body.id_proveedor},
-    {puntaje: puntaje, numPuntuados: numPuntuados},
-    (err, resp) => {
-      if (err) return res.status(500).send(err);
-      else res.json({success: true, data: resp})
-    }
-  )
+router.post('/users/uploadAvatar', upload.array('photo', 3), async function(req, res){
+  var updateImage = await ProveedoresInfo.findOne({id_proveedor:req.body.user}).exec();
+  if(updateImage){
+    updateImage.image = '/images/'+req.file.filename
+  } 
+  return res.status(200).json({valid:true, result: req.file.filename})
 });
+
+
 
 module.exports = router;
