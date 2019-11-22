@@ -172,6 +172,7 @@ router.post('/users/proveedorProfile', function(req, res, next){
   )
 });
 router.post('/users/uploadAvatar', upload.array('photo', 3), async function(req, res){
+  console.log(req.body)
   var updateImage = await ProveedoresInfo.findOne({id_proveedor:req.body.user}).exec();
   if(updateImage){
     updateImage.image = '/images/'+req.file.filename
